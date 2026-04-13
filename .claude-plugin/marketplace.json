@@ -1,0 +1,19 @@
+{
+  "name": "oscarqjh-super-agent-skills",
+  "owner": {
+    "name": "oscarqjh"
+  },
+  "metadata": {
+    "description": "Full-lifecycle engineering skills for AI coding agents — orchestration chain from brainstorm to ship, with production-grade engineering standards at every step."
+  },
+  "plugins": [
+    {
+      "name": "super-agent-skills",
+      "source": {
+        "source": "github",
+        "repo": "oscarqjh/super-agent-skills"
+      },
+      "description": "Orchestration chain (brainstorm → plan → build → review → ship) with anti-rationalizations, 5-axis code review, TDD, OWASP, and 24 engineering skills."
+    }
+  ]
+}

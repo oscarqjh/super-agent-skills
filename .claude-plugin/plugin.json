@@ -1,0 +1,13 @@
+{
+  "name": "super-agent-skills",
+  "description": "Full-lifecycle engineering skills for AI coding agents — orchestration chain from brainstorm to ship, with production-grade engineering standards at every step.",
+  "version": "1.0.0",
+  "author": {
+    "name": "oscarqjh"
+  },
+  "homepage": "https://github.com/oscarqjh/super-agent-skills",
+  "repository": "https://github.com/oscarqjh/super-agent-skills",
+  "license": "MIT",
+  "commands": "./commands",
+  "hooks": "./hooks/hooks.json"
+}
