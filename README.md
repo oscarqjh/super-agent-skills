@@ -6,14 +6,19 @@ A standalone Claude Code plugin that combines orchestration (brainstorm → plan
 
 1. Install the plugin:
    ```bash
-   # Add the marketplace and install (two steps)
-   /plugin marketplace add https://github.com/oscarqjh/super-agent-skills.git
+   # Add the marketplace and install
+   /plugin marketplace add oscarqjh/super-agent-skills
    /plugin install super-agent-skills@oscarqjh-super-agent-skills
 
    # Or clone and add locally
    git clone https://github.com/oscarqjh/super-agent-skills.git
    claude plugin add -- ./super-agent-skills
    ```
+
+   > **SSH errors?** The marketplace clones repos via SSH. If you don't have SSH keys set up on GitHub, either [add your SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) or switch to HTTPS for fetches only:
+   > ```bash
+   > git config --global url."https://github.com/".insteadOf "git@github.com:"
+   > ```
 
 2. Use `/superthink` followed by what you want to do:
    ```
