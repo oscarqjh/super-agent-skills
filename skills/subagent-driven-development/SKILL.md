@@ -63,6 +63,10 @@ digraph process {
     "Post-implementation verification" [shape=box];
     "Dispatch final code reviewer subagent for entire implementation" [shape=box];
     "Use super-agent-skills:requesting-code-review" [shape=box style=filled fillcolor=lightgreen];
+    "Check file overlap\nfor next N tasks" [shape=diamond];
+    "Dispatch parallel batch\n(max 3 agents)" [shape=box];
+    "Review each result\nsequentially" [shape=box];
+    "Run integration\ntest suite" [shape=box];
 
     "Read plan, extract all tasks with full text, note context, create TodoWrite" -> "Dispatch implementer subagent (./implementer-prompt.md)";
     "Dispatch implementer subagent (./implementer-prompt.md)" -> "Implementer subagent asks questions?";
@@ -79,7 +83,12 @@ digraph process {
     "Implementer subagent fixes quality issues" -> "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" [label="re-review"];
     "Code quality reviewer subagent approves?" -> "Mark task complete in TodoWrite" [label="yes"];
     "Mark task complete in TodoWrite" -> "More tasks remain?";
-    "More tasks remain?" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="yes"];
+    "More tasks remain?" -> "Check file overlap\nfor next N tasks" [label="yes"];
+    "Check file overlap\nfor next N tasks" -> "Dispatch parallel batch\n(max 3 agents)" [label="no overlap"];
+    "Check file overlap\nfor next N tasks" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="overlap found\nor single task"];
+    "Dispatch parallel batch\n(max 3 agents)" -> "Review each result\nsequentially" [label="all complete"];
+    "Review each result\nsequentially" -> "Run integration\ntest suite";
+    "Run integration\ntest suite" -> "More tasks remain?";
     "More tasks remain?" -> "Post-implementation verification" [label="no"];
     "Post-implementation verification" -> "Dispatch final code reviewer subagent for entire implementation";
     "Dispatch final code reviewer subagent for entire implementation" -> "Use super-agent-skills:requesting-code-review";
@@ -141,6 +150,48 @@ Reference: The implementer should follow `super-agent-skills:incremental-impleme
 - Using frameworks/libraries → invoke `super-agent-skills:source-driven-development`
 - Making architectural decisions → invoke `super-agent-skills:documentation-and-adrs`
 - Browser-based debugging needed → invoke `super-agent-skills:browser-testing-with-devtools`
+
+## Parallel Dispatch
+
+When the plan contains independent tasks (no shared files), dispatch them simultaneously for faster execution.
+
+### File Overlap Check
+
+Before dispatching the next batch of tasks, check for file overlap:
+
+1. Read the "Files" section of each upcoming task
+2. Build a set of all files each task will touch (create + modify + test)
+3. If any two tasks share ANY file → those tasks must stay sequential
+4. Tasks with zero overlap can be dispatched in parallel
+
+```
+Task 3: Files: src/api/tasks.ts, tests/api/tasks.test.ts
+Task 4: Files: src/components/TaskList.tsx, tests/components/TaskList.test.tsx
+Task 5: Files: src/api/tasks.ts, src/api/auth.ts
+
+→ Task 3 and Task 4: zero overlap → PARALLEL
+→ Task 5 shares src/api/tasks.ts with Task 3 → SEQUENTIAL (after Task 3)
+```
+
+### Parallel Batch Execution
+
+1. Group overlap-free tasks into a batch (max 3 agents)
+2. Dispatch all agents in the batch simultaneously using background mode
+3. Wait for all to complete
+4. Run spec compliance review on each result (sequentially — reviewer needs to see combined state)
+5. Run code quality review on each result
+6. Fix issues sequentially (fixes may now touch shared areas)
+7. Run full test suite after the batch to catch integration issues
+
+### Safety Rules
+
+- **Max 3 parallel agents** — more creates coordination overhead that exceeds the speed benefit
+- **ANY shared file → sequential** — no exceptions, even if the changes are in different functions
+- **BLOCKED/NEEDS_CONTEXT in batch → pause all** — resolve the blocker before continuing
+- **Post-batch test suite is mandatory** — parallel work may have integration issues that per-task tests miss
+- **When in doubt, stay sequential** — parallel dispatch is an optimization, not a requirement
+
+For detailed algorithm and examples, see `parallel-dispatch-guide.md`.
 
 ## Prompt Templates
 
@@ -287,7 +338,8 @@ If any issues are found, fix them before proceeding to the final code review.
 - Start implementation on main/master branch without explicit user consent
 - Skip reviews (spec compliance OR code quality)
 - Proceed with unfixed issues
-- Dispatch multiple implementation subagents in parallel (conflicts)
+- Dispatch parallel subagents without verifying zero file overlap between tasks (see Parallel Dispatch)
+- Dispatch more than 3 parallel subagents simultaneously
 - Make subagent read plan file (provide full text instead)
 - Skip scene-setting context (subagent needs to understand where task fits)
 - Ignore subagent questions (answer before letting them proceed)

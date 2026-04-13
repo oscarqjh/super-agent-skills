@@ -92,10 +92,15 @@ Instruct the code-reviewer to evaluate across these dimensions:
 - Are there dead code artifacts?
 
 ### 3. Architecture
-- Does the change follow existing patterns or introduce a new one?
+- Does the change follow existing patterns or introduce a new one? If new, is it justified?
 - Does it maintain clean module boundaries?
 - Is there code duplication that should be shared?
-- Are dependencies flowing in the right direction?
+- Are dependencies flowing in the right direction (no circular dependencies)?
+- Does this change increase or decrease coupling between modules?
+- Are new abstractions justified by multiple use cases (not speculative)?
+- Could this change break consumers of the modified interfaces (Hyrum's Law)?
+- Is the dependency graph acyclic? Does this change introduce cycles?
+- For new public APIs: is the interface minimal? Could it be made smaller?
 
 ### 4. Security
 - Is user input validated and sanitized?
@@ -124,11 +129,71 @@ Small, focused changes are easier to review:
 
 If a change is too large, ask the author to split using: vertical slices, by file group, or horizontal layers.
 
+## Review Sizing Gate
+
+Before dispatching the reviewer, enforce the sizing rules as a hard gate:
+
+```bash
+# Count lines changed
+LINES_CHANGED=$(git diff --stat $BASE_SHA..$HEAD_SHA | tail -1 | awk '{print $4+$6}')
+```
+
+| Lines changed | Action |
+|---------------|--------|
+| ≤300 | Proceed with review |
+| 301-1000 | Warn: "This change is large. Consider splitting." Proceed if author confirms. |
+| >1000 | Block: "This change is too large to review effectively. Split it before requesting review." Do NOT dispatch reviewer. |
+
+This enforces what "Change Sizing" recommends. A 2000-line review catches fewer bugs than two 1000-line reviews because reviewer attention degrades with size.
+
 ## Domain Skill Sub-Checks
 
 For security-sensitive changes (auth, user input, external data), the reviewer should additionally invoke `super-agent-skills:security-and-hardening` for a focused security review.
 
 For performance-sensitive changes (database queries, rendering, data processing), the reviewer should additionally invoke `super-agent-skills:performance-optimization` for a focused performance review.
+
+## Self-Healing Review Loop
+
+When the reviewer finds Critical or Important issues, automate the fix-and-re-review cycle instead of manual back-and-forth.
+
+### The Loop
+
+```
+Reviewer returns issues
+    │
+    ├── Critical/Important issues found
+    │   │
+    │   ▼
+    │   Dispatch fix agent with reviewer feedback as instructions
+    │   │
+    │   ▼
+    │   Fix agent makes changes and commits
+    │   │
+    │   ▼
+    │   Re-dispatch reviewer to verify fixes
+    │   │
+    │   ├── Issues resolved → Proceed
+    │   └── Issues remain → Loop (max 3 rounds)
+    │
+    ├── Only Minor/Nit issues → Proceed (note for later)
+    │
+    └── No issues → Proceed
+```
+
+### Rules
+
+- **Max 3 rounds.** If the issue isn't fixed after 3 review-fix cycles, escalate to human. Three rounds of the same issue means the problem is in the spec or architecture, not the implementation.
+- **Fix agent gets the reviewer's exact feedback** — file:line references, what's wrong, how to fix. No guessing.
+- **Each round re-reviews only the fix** — don't re-review the entire change from scratch.
+- **Track the loop count.** If a project consistently hits 3 rounds, the plans need more detail or the acceptance criteria are ambiguous.
+
+### Anti-Rationalizations
+
+| Thought | Reality |
+|---------|---------|
+| "The fix is obvious, skip re-review" | Obvious fixes introduce obvious bugs. Re-review is cheap. |
+| "3 rounds is too many, just merge" | 3 rounds means the spec is broken. Merging broken code is more expensive. |
+| "I'll fix it manually instead of dispatching" | Manual fixes pollute your context. Dispatch a fresh agent. |
 
 ## Integration with Workflows
 
