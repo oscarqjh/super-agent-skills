@@ -7,7 +7,7 @@ A standalone Claude Code plugin that combines orchestration (brainstorm → plan
 1. Install the plugin:
    ```bash
    # Add the marketplace and install (two steps)
-   /plugin marketplace add oscarqjh/super-agent-skills
+   /plugin marketplace add https://github.com/oscarqjh/super-agent-skills.git
    /plugin install super-agent-skills@oscarqjh-super-agent-skills
 
    # Or clone and add locally

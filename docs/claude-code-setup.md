@@ -9,7 +9,7 @@ Claude Code is the **primary environment** for super-agent-skills. It runs as a 
 Inside Claude Code, run:
 
 ```
-/plugin marketplace add oscarqjh/super-agent-skills
+/plugin marketplace add https://github.com/oscarqjh/super-agent-skills.git
 /plugin install super-agent-skills@oscarqjh-super-agent-skills
 ```
 
