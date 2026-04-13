@@ -88,19 +88,17 @@ cors({ origin: '*' })  // Allows any origin
 
 ## Dependency Security
 
-```bash
-# Audit dependencies
-npm audit
+- [ ] `npm audit` / `pip-audit` / `cargo audit` shows no critical or high vulnerabilities
+- [ ] All dependencies have compatible licenses (no GPL in proprietary projects without legal review)
+- [ ] Lockfile committed and reviewed in PRs
+- [ ] `--frozen-lockfile` / `npm ci` used in CI (no silent resolution changes)
+- [ ] No unused dependencies (`npx depcheck` / `pip-extra-reqs`)
+- [ ] Package names verified against official registry (no typosquatting)
+- [ ] Dev dependencies reviewed (they execute during build — compromised build tool = compromised pipeline)
+- [ ] No packages with known supply chain incidents
+- [ ] New dependencies reviewed before merging: maintainer, age, download count, bundle size
 
-# Fix automatically where possible
-npm audit fix
-
-# Check for critical vulnerabilities
-npm audit --audit-level=critical
-
-# Keep dependencies updated
-npx npm-check-updates
-```
+For detailed supply chain security guidance, see `references/supply-chain-security.md`.
 
 ## Error Handling
 

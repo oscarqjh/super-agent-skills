@@ -53,8 +53,9 @@ You MUST create a task for each of these items and complete them in order:
 5. **Present design** — in sections scaled to their complexity, get user approval after each section
 6. **Write design doc** — save to `docs/specs/YYYY-MM-DD-<topic>-design.md` and commit
 7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
-8. **User reviews written spec** — ask user to review the spec file before proceeding
-9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+8. **Generate acceptance test skeletons** — extract success criteria from the spec and write test outlines (see below)
+9. **User reviews written spec** — ask user to review the spec file before proceeding
+10. **Transition to implementation** — invoke writing-plans skill to create implementation plan
 
 ## Process Flow
 
@@ -69,6 +70,7 @@ digraph brainstorming {
     "User approves design?" [shape=diamond];
     "Write design doc" [shape=box];
     "Spec self-review\n(fix inline)" [shape=box];
+    "Generate acceptance\ntest skeletons" [shape=box];
     "User reviews spec?" [shape=diamond];
     "Invoke writing-plans skill" [shape=doublecircle];
 
@@ -82,7 +84,8 @@ digraph brainstorming {
     "User approves design?" -> "Present design sections" [label="no, revise"];
     "User approves design?" -> "Write design doc" [label="yes"];
     "Write design doc" -> "Spec self-review\n(fix inline)";
-    "Spec self-review\n(fix inline)" -> "User reviews spec?";
+    "Spec self-review\n(fix inline)" -> "Generate acceptance\ntest skeletons";
+    "Generate acceptance\ntest skeletons" -> "User reviews spec?";
     "User reviews spec?" -> "Write design doc" [label="changes requested"];
     "User reviews spec?" -> "Invoke writing-plans skill" [label="approved"];
 }
@@ -185,6 +188,35 @@ After writing the spec document, look at it with fresh eyes:
 4. **Ambiguity check:** Could any requirement be interpreted two different ways? If so, pick one and make it explicit.
 
 Fix any issues inline. No need to re-review — just fix and move on.
+
+**Acceptance Test Generation:**
+
+After the spec self-review passes, extract each success criterion and generate a test skeleton. Append these to the spec document as a new section:
+
+```markdown
+## Acceptance Tests
+
+Generated from success criteria. These will be incorporated into the implementation plan as pre-defined test cases.
+
+- [ ] `test: [success criterion rephrased as test name]`
+      Given: [precondition]
+      When: [action]
+      Then: [expected outcome]
+
+- [ ] `test: [next criterion]`
+      Given: [precondition]
+      When: [action]
+      Then: [expected outcome]
+```
+
+**Rules for test skeletons:**
+- One test per success criterion — no more, no less
+- Use Given/When/Then format (readable by anyone, framework-agnostic)
+- Be specific about inputs and expected outputs (not "should work correctly")
+- Include at least one negative test (what should NOT happen)
+- These are skeletons, not implementations — the implementer writes the actual test code during TDD
+
+This bridges the gap between "what we want" (spec) and "how we prove it works" (tests). The implementer doesn't invent test cases from scratch — they implement pre-defined acceptance criteria.
 
 **User Review Gate:**
 After the spec review loop passes, ask the user to review the written spec before proceeding:

@@ -103,6 +103,8 @@ Each vertical slice delivers working, testable functionality.
 ---
 ```
 
+**If the spec includes an "Acceptance Tests" section** (generated during brainstorming), incorporate those test skeletons into the plan's task steps. Each acceptance test should map to a specific task's test step — don't make the implementer re-derive tests that already exist in the spec.
+
 ## Task Structure
 
 ````markdown

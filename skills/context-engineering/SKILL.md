@@ -118,6 +118,107 @@ Long conversations accumulate stale context. Manage this:
 - **Summarize progress** when context is getting long: "So far we've completed X, Y, Z. Now working on W."
 - **Compact deliberately** — if the tool supports it, compact/summarize before critical work
 
+## Mid-Session Context Management
+
+Context degrades over long sessions. Recognize it, manage it, or recover from it.
+
+### Degradation Signals
+
+Watch for these signs that the agent is losing useful context:
+
+| Signal | Meaning |
+|--------|---------|
+| Agent references APIs or imports that don't exist | Hallucinating — real context pushed out by stale history |
+| Agent re-implements a utility that already exists in the codebase | Forgot earlier file reads |
+| Agent ignores conventions it followed earlier | Rules file content compacted away |
+| Agent asks questions you already answered | Conversation history lost to compaction |
+| Agent's code quality drops noticeably | Context overload — too much low-value information |
+
+### When to Compact
+
+Compact **before** critical work, not during:
+
+- Before starting a new task in a multi-task session
+- When you notice any degradation signal above
+- After a long debugging session (stale error traces fill context)
+- Before the final review/verification pass
+
+### What to Preserve vs Discard
+
+**Preserve (high value per token):**
+- Current task description and acceptance criteria
+- Key decisions made in this session (and why)
+- File paths being modified
+- Active error messages or test failures
+- Rules file content (conventions, commands)
+
+**Discard (low value per token):**
+- Exploration history (files read but not modified)
+- Rejected approaches and their reasoning
+- Resolved error traces from earlier in the session
+- Verbose tool output from successful operations
+
+### Tiered Memory Model
+
+Organize what's loaded into context by temperature:
+
+```
+HOT (~2000 tokens) — always in context:
+  Current task spec/acceptance criteria
+  Files being actively modified
+  Active errors or test failures
+
+WARM (~3000 tokens) — loaded on demand:
+  Related test files
+  Type definitions and interfaces
+  One example of the pattern to follow
+
+COLD (not in context) — load only when needed:
+  Full project spec
+  Architecture docs
+  Reference checklists
+  Historical decisions
+```
+
+**Rule of thumb:** If you haven't referenced it in the last 3 turns, it should be warm or cold, not hot.
+
+### Cross-Session Persistence
+
+Know where to save different types of knowledge:
+
+| What | Where | Why |
+|------|-------|-----|
+| Project conventions, tech stack, commands | CLAUDE.md | Loaded every session automatically |
+| Feature requirements, success criteria | `docs/specs/*.md` | Loaded when working on that feature |
+| Architectural decisions and rationale | ADRs in `docs/` | Loaded when revisiting that area |
+| User preferences, workflow patterns | Memory files | Recalled by agent as needed |
+| Current task progress | Conversation context | Lost on session end — summarize before closing |
+
+**Before ending a session with incomplete work**, write a handoff note:
+
+```
+SESSION HANDOFF:
+- Working on: [feature/task]
+- Completed: [what's done]
+- Next step: [what to do next]
+- Key decision: [any decision that's not obvious from code]
+- Files involved: [list]
+```
+
+Save this as a comment in the relevant spec/plan file or as a commit message.
+
+### Recovery Pattern
+
+When context is degraded beyond saving (agent consistently hallucinating or ignoring conventions):
+
+1. **Don't fight it.** Start a new session.
+2. **Write the handoff note** (see above)
+3. **In the new session, load:**
+   - The handoff note
+   - The relevant spec section
+   - The files being modified
+4. **Verify the agent is oriented:** Ask it to summarize what it understands before continuing work.
+
 ## Context Packing Strategies
 
 ### The Brain Dump

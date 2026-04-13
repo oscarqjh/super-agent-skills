@@ -17,6 +17,9 @@ Security-first development practices for web applications. Treat every external 
 - Integrating with external APIs or services
 - Adding file uploads, webhooks, or callbacks
 - Handling payment or PII data
+- Adding or updating third-party dependencies
+- Auditing packages for security or license compliance
+- Building applications that use LLMs or AI models
 
 ## The Three-Tier Boundary System
 
@@ -316,6 +319,36 @@ git diff --cached | grep -i "password\|secret\|api_key\|token"
 
 For detailed security checklists and pre-commit verification steps, see `references/security-checklist.md`.
 
+## Supply Chain Security
+
+Dependencies are attack surface. Every package you install runs with your application's privileges.
+
+### Before Adding a Dependency
+
+Ask five questions before `npm install`:
+
+1. **Do we need it?** Can the standard library or existing deps solve this?
+2. **Is it maintained?** Last commit within 6 months? Active issue responses?
+3. **Is it trusted?** Check download count, maintainer count, GitHub stars. Low numbers on a critical package = risk.
+4. **Is it safe?** Run `npm audit` / `pip audit` / `cargo audit` before and after adding.
+5. **Is the license compatible?** GPL in a proprietary project = legal problem. Check with `license-checker` or equivalent.
+
+### Typosquatting Detection
+
+Before installing, verify the package name exactly:
+- `lodash` not `1odash`
+- `@babel/core` not `@bable/core`
+- Check the npm/PyPI page directly — don't trust autocomplete
+
+### AI-Specific Vulnerabilities
+
+When building applications that use LLMs:
+- **Prompt injection:** Treat all user input that reaches an LLM as untrusted. Never concatenate user input directly into system prompts.
+- **Output validation:** LLM output is untrusted data. Validate and sanitize before using in SQL, HTML, or system commands.
+- **Model supply chain:** Verify model checksums. Don't load models from untrusted sources.
+
+For detailed checklists, see `references/supply-chain-security.md`.
+
 ## Common Rationalizations
 
 | Rationalization | Reality |
@@ -325,6 +358,8 @@ For detailed security checklists and pre-commit verification steps, see `referen
 | "No one would try to exploit this" | Automated scanners will find it. Security by obscurity is not security. |
 | "The framework handles security" | Frameworks provide tools, not guarantees. You still need to use them correctly. |
 | "It's just a prototype" | Prototypes become production. Security habits from day one. |
+| "We trust this package" | Trust is not a security strategy. Audit every dependency — popular packages get compromised too. |
+| "It's only a dev dependency" | Dev dependencies execute during build. A compromised build tool owns your CI pipeline. |
 
 ## Red Flags
 
