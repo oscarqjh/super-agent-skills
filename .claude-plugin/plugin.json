@@ -8,6 +8,5 @@
   "homepage": "https://github.com/oscarqjh/super-agent-skills",
   "repository": "https://github.com/oscarqjh/super-agent-skills",
   "license": "MIT",
-  "commands": "./commands",
-  "hooks": "./hooks/hooks.json"
+  "commands": "./commands"
 }
