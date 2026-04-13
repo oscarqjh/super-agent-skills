@@ -11,7 +11,8 @@
       "name": "super-agent-skills",
       "source": {
         "source": "url",
-        "url": "https://github.com/oscarqjh/super-agent-skills.git"
+        "url": "https://github.com/oscarqjh/super-agent-skills.git",
+        "sha": "5143deaa10e4f1ad2b386177dd80536cdde271c1"
       },
       "description": "Orchestration chain (brainstorm → plan → build → review → ship) with anti-rationalizations, 5-axis code review, TDD, OWASP, and 24 engineering skills."
     }
