@@ -178,6 +178,8 @@ git worktree remove <worktree-path>
 
 **For Option 3:** Keep worktree.
 
+**If not using a worktree** (working directly on a branch), skip Step 5. The pre-merge checklist (Step 1.5) and completion options (Steps 2-4) still apply regardless of whether a worktree is involved.
+
 ## Quick Reference
 
 | Option | Merge | Push | Keep Worktree | Cleanup Branch |

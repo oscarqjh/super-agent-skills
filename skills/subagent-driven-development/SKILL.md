@@ -95,6 +95,8 @@ digraph process {
 }
 ```
 
+**Chain completion:** After requesting-code-review approves the implementation, it will invoke `super-agent-skills:finishing-a-development-branch` to handle the final commit/push/merge. Do NOT commit or push directly — the chain handles it.
+
 ## Model Selection
 
 Use the least powerful model that can handle each role to conserve cost and increase speed.

@@ -236,4 +236,6 @@ See template at: requesting-code-review/code-reviewer.md
 
 ## Handoff
 
-When review is complete and all issues are resolved, invoke `super-agent-skills:finishing-a-development-branch` to complete the work.
+<HARD-GATE>
+When review is complete and all issues are resolved, you MUST invoke `super-agent-skills:finishing-a-development-branch`. Do NOT commit, push, or claim the work is done without invoking this skill first. Even if the user says "commit" or "push" — invoke finishing-a-development-branch, which will handle the commit/push after running the pre-merge checklist.
+</HARD-GATE>

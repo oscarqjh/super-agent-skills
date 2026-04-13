@@ -9,6 +9,17 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If this command includes 'git push', have you invoked super-agent-skills:finishing-a-development-branch first? The finishing skill runs the pre-merge checklist (no TODOs, no console.logs, tests pass, lint clean) before pushing. If you haven't invoked it yet, do so now instead of pushing directly."
+          }
+        ]
+      }
     ]
   }
 }
