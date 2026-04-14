@@ -1,40 +1,32 @@
 # super-agent-skills
 
-A standalone Claude Code plugin that combines orchestration (brainstorm → plan → execute → review → ship) with production-grade engineering standards (anti-rationalizations, 5-axis code review, OWASP, Hyrum's Law, TDD).
+**One command. Full lifecycle.** An opinionated Claude Code plugin that turns "I want to build X" into shipped code — with specs, plans, tests, reviews, and documentation along the way.
 
-## Getting Started
+Just type `/superthink` and the plugin handles the rest.
 
-1. Install the plugin:
-   ```bash
-   # Add the marketplace and install
-   /plugin marketplace add oscarqjh/super-agent-skills
-   /plugin install super-agent-skills@oscarqjh-super-agent-skills
+```
+/superthink I want to build a task management API
+```
 
-   # Or clone and load locally
-   git clone https://github.com/oscarqjh/super-agent-skills.git
-   claude --plugin-dir ./super-agent-skills
-   ```
+The agent brainstorms the design, writes the spec, plans the implementation, dispatches subagents to build it, runs code reviews, and prompts you when it's ready to ship. Every step follows production-grade engineering standards — TDD, 5-axis code review, STRIDE threat modeling, anti-rationalization tables that catch when the agent tries to cut corners.
 
-   > **SSH errors?** The marketplace clones repos via SSH. If you don't have SSH keys set up on GitHub, either [add your SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) or switch to HTTPS for fetches only:
-   > ```bash
-   > git config --global url."https://github.com/".insteadOf "git@github.com:"
-   > ```
+## Install
 
-2. Use `/superthink` followed by what you want to do:
-   ```
-   /superthink I want to build a task management API
-   /superthink fix the authentication bug in login.ts
-   /superthink review my changes before merging
-   /superthink simplify the auth module
-   ```
+```bash
+# From marketplace
+/plugin marketplace add oscarqjh/super-agent-skills
+/plugin install super-agent-skills@oscarqjh-super-agent-skills
 
-That's it. The plugin understands your intent, gathers project context, and routes to the right workflow automatically.
+# Or load locally
+git clone https://github.com/oscarqjh/super-agent-skills.git
+claude --plugin-dir ./super-agent-skills
+```
 
-> **Replaces** both `superpowers` and `agent-skills`. Do not install either alongside this plugin.
+> **SSH errors?** The marketplace clones via SSH. Either [add your SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) or run: `git config --global url."https://github.com/".insteadOf "git@github.com:"`
 
-### Other Environments
+> **Replaces** both `superpowers` and `agent-skills`. Do not install either alongside this plugin. Run `/super-agent-skills:audit` to check for conflicts.
 
-Not using Claude Code? See the setup guide for your tool:
+## Setup Guides
 
 | Environment | Guide |
 |-------------|-------|
@@ -46,164 +38,72 @@ Not using Claude Code? See the setup guide for your tool:
 | **GitHub Copilot** | [docs/copilot-setup.md](docs/copilot-setup.md) |
 | **Any agent** | [docs/getting-started.md](docs/getting-started.md) |
 
-## What Happens When You Run `/superthink`
+## How It Works
 
-The plugin classifies your intent and routes accordingly:
-
-| You say... | Plugin does... |
-|-----------|---------------|
-| "build X", "create X", "add X", "I want to..." | Full chain: brainstorm → plan → build → review → ship |
-| "fix X", "bug in X", "X is broken" | Systematic debugging (root cause first) |
-| "review my code", "check before merging" | 5-axis code review |
-| "test X", "write tests for X" | TDD workflow (red-green-refactor) |
-| "simplify X", "refactor X", "clean up X" | Code simplification |
-| "ship it", "merge", "create PR" | Pre-merge checklist + merge/PR options |
-| "plan X", "break down X" | Task breakdown with dependency graphs |
-
-### The Full Build Chain
-
-When you're building something new, the plugin runs the complete lifecycle automatically:
+`/superthink` classifies your intent and routes to the right workflow:
 
 ```
-/superthink I want to build X
+/superthink [what you want to do]
         │
-        ▼
-  ① brainstorming ──────────── design spec
-        │
-        ▼
-  ② writing-plans ─────────── implementation plan
-        │
-        ▼
-  ③ subagent-driven-development
-     │  Per task:
-     │   a. Dispatch implementer (TDD + incremental)
-     │   b. Domain skills auto-trigger (API, frontend, security...)
-     │   c. Spec compliance review
-     │   d. Code quality review (5-axis)
-     │  After all tasks: full test suite + self-review
-        │
-        ▼
-  ④ requesting-code-review ── 5-axis review
-        │
-        ▼
-  ⑤ finishing-a-development-branch ── merge / PR / cleanup
+        ├── "build X" ──────── Full lifecycle chain (see below)
+        ├── "fix X" ────────── Root-cause debugging (not guessing)
+        ├── "review code" ──── 5-axis code review
+        ├── "test X" ───────── TDD with spec-driven test generation
+        ├── "simplify X" ──── Reduce complexity, preserve behavior
+        ├── "ship it" ──────── Pre-merge checklist → merge/PR
+        └── "plan X" ───────── Task breakdown with dependency graphs
 ```
 
-At any point, if something breaks → `systematic-debugging` activates.
+### The Build Chain
 
-## Expert Shortcuts
-
-If you know exactly which phase you need, skip the routing:
-
-| Command | Jumps to |
-|---------|----------|
-| `/spec` | Brainstorming — design exploration and spec writing |
-| `/plan` | Writing plans — task breakdown with vertical slicing |
-| `/build` | Subagent-driven development — execute a plan |
-| `/test` | TDD — red-green-refactor cycle |
-| `/review` | Code review — 5-axis evaluation |
-| `/simplify` | Code simplification — reduce complexity |
-| `/ship` | Finish branch — pre-merge checklist, merge/PR |
-| `/debug` | Systematic debugging — root cause investigation |
-
-## Skills (24)
-
-### Chain Skills (6) — drive the orchestration flow
-
-| Skill | What it does |
-|-------|-------------|
-| `brainstorming` | Explore ideas with divergent/convergent thinking, produce design spec |
-| `writing-plans` | Break spec into bite-sized tasks with dependency graphs and vertical slicing |
-| `subagent-driven-development` | Execute plan via fresh subagent per task with two-stage review |
-| `executing-plans` | Alternative inline execution (no subagents) |
-| `requesting-code-review` | Dispatch 5-axis code review (correctness, readability, architecture, security, performance) |
-| `finishing-a-development-branch` | Pre-merge checklist, atomic commits, merge/PR/keep/discard options |
-
-### Domain Skills (10) — auto-trigger during implementation
-
-| Skill | Triggers when... |
-|-------|-----------------|
-| `test-driven-development` | Implementing any logic or fixing bugs |
-| `incremental-implementation` | Task touches multiple files |
-| `api-and-interface-design` | Designing APIs, endpoints, module boundaries |
-| `frontend-ui-engineering` | Building or modifying UI |
-| `security-and-hardening` | Handling user input, auth, external data |
-| `performance-optimization` | Performance requirements or regressions |
-| `source-driven-development` | Using frameworks or libraries |
-| `code-simplification` | Refactoring for clarity |
-| `documentation-and-adrs` | Making architectural decisions |
-| `browser-testing-with-devtools` | Browser-based debugging |
-
-### Support Skills (7) — invoked by other skills
-
-| Skill | Used by |
-|-------|---------|
-| `systematic-debugging` | Any skill when something breaks |
-| `verification-before-completion` | Every skill before claiming done |
-| `receiving-code-review` | After code review feedback |
-| `using-git-worktrees` | Isolated workspace setup |
-| `dispatching-parallel-agents` | Multiple independent problems |
-| `context-engineering` | Session start, context management |
-| `writing-skills` | Authoring new skills for plugins |
-
-### Meta (1)
-
-| Skill | Purpose |
-|-------|---------|
-| `using-skills` | Session-start routing — decides which skill to activate |
-
-## What's Included
+When you're building something new, the plugin runs the complete lifecycle:
 
 ```
-super-agent-skills/
-├── .claude-plugin/plugin.json     Plugin metadata
-├── CLAUDE.md                      Plugin conventions
-├── skills/                        24 skills (SKILL.md each)
-│   ├── brainstorming/             + visual companion, scripts
-│   ├── writing-plans/             + plan reviewer prompt
-│   ├── subagent-driven-development/ + implementer, spec, quality prompts
-│   ├── systematic-debugging/      + root-cause tracing, defense-in-depth
-│   ├── writing-skills/            + best practices, testing guides
-│   └── ...
-├── agents/                        7 subagent personas
-│   ├── code-reviewer.md           Senior Staff Engineer, 5-axis review
-│   ├── test-engineer.md           QA Specialist, test strategy
-│   ├── security-auditor.md        Security Engineer, OWASP
-│   ├── architecture-reviewer.md   Software Architect, design evaluation
-│   ├── test-generator.md          QA Engineer, autonomous test generation
-│   ├── dependency-auditor.md      Supply Chain Specialist, dependency audit
-│   └── migration-assistant.md     Migration Specialist, framework upgrades
-├── references/                    4 checklists
-│   ├── security-checklist.md      OWASP Top 10, input validation, CORS
-│   ├── performance-checklist.md   Core Web Vitals, frontend/backend
-│   ├── testing-patterns.md        AAA pattern, mocking, E2E
-│   └── accessibility-checklist.md WCAG 2.1 AA
-├── commands/                      9 slash commands
-└── hooks/                         Session-start hook
+① Brainstorming          Ask questions, explore approaches, write design spec
+        │                 + generates acceptance test skeletons
+        ▼                 + invokes threat-modeling if security-sensitive
+② Writing Plans          Break spec into bite-sized tasks with vertical slicing
+        │                 + maps dependency graph, adds checkpoints
+        ▼                 + suggests compound-engineering if multi-stream
+③ Building               Dispatch fresh subagent per task (TDD, incremental)
+        │                 + domain skills auto-trigger: API, frontend, security...
+        │                 + parallel dispatch for independent tasks (max 3)
+        ▼                 + spec compliance review + code quality review per task
+④ Code Review            5-axis review with self-healing fix loop (3 rounds)
+        │                 + architecture reviewer for design-significant changes
+        ▼
+⑤ You Choose             "Wrap up" (commit + next task) OR "Ship it" (merge/PR)
 ```
 
-## What Makes This Different
+Every step has anti-rationalization tables that catch shortcuts, and hooks that enforce handoffs. See [Architecture](docs/architecture.md) for the complete process graph with all skills, agents, and hooks.
 
-Every chain skill includes:
+## What's Inside
 
-- **Process** — orchestration steps with explicit handoffs
-- **Anti-Rationalizations** — catches when Claude tries to skip steps ("Requirements are obvious" → "Unwritten requirements are unvalidated assumptions")
-- **Red Flags** — warning signs of misapplication
-- **Verification** — concrete evidence requirements before claiming done
+29 skills, 7 agent personas, 6 reference guides, 12 slash commands, 4 hook types.
 
-Domain skills enforce engineering standards:
+See [Architecture](docs/architecture.md) for the full inventory and how everything connects.
 
-- TDD with red-green-refactor discipline
-- Vertical slicing over horizontal layers
-- Security-first with OWASP prevention
-- Measure-first performance optimization
-- Hyrum's Law awareness in API design
+
+
+## Documentation
+
+- [Architecture](docs/architecture.md) — complete process graph, skill inventory, hook system, core principles
+- [Changelog](docs/super-agent-skills/changelog.md) — version history
+- [Backlog](docs/super-agent-skills/backlogs.md) — what's planned next
+- [MCP Integrations](references/mcp-integrations.md) — recommended MCP servers
+- [CLAUDE.md](CLAUDE.md) — plugin conventions
 
 ## Credits
 
-Built by merging and extending:
-- [superpowers](https://github.com/obra/superpowers) by Jesse Vincent — orchestration and workflow skills
-- [agent-skills](https://github.com/addyosmani/agent-skills) by Addy Osmani — engineering standards and domain skills
+This plugin combines the best of two worlds:
+- [superpowers](https://github.com/obra/superpowers) by Jesse Vincent — the process orchestration (brainstorm → plan → build → review → ship chain, subagent dispatch, worktree management)
+- [agent-skills](https://github.com/addyosmani/agent-skills) by Addy Osmani — the engineering rigour (TDD discipline, OWASP security, 5-axis code review, Hyrum's Law, anti-rationalization tables)
+
+On top of the merge, super-agent-skills adds: deterministic chain enforcement via hooks, a wrap-up skill for lightweight checkpointing, compound engineering for multi-stream parallel development, STRIDE threat modeling, project-setup with organic CLAUDE.md growth, plugin audit for conflict detection, and a `/superthink` universal entry point that makes it all work with one command.
+
+## License
+
+MIT
 
 ## License
 

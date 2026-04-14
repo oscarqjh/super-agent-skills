@@ -48,13 +48,15 @@ If the plugin responds with skill routing, you are set.
 
 | You say... | Plugin routes to... |
 |-----------|-------------------|
-| "build X", "create X", "add X", "I want to..." | Full chain: brainstorming -> writing-plans -> subagent-driven-development -> requesting-code-review -> finishing-a-development-branch |
+| "build X", "create X", "add X", "I want to..." | Full chain: brainstorming → writing-plans → build → review → wrap-up/ship |
 | "fix X", "bug in X", "X is broken", "debug" | systematic-debugging |
 | "review", "check my code", "before merging" | requesting-code-review |
 | "test", "TDD", "write tests" | test-driven-development |
 | "simplify", "refactor", "clean up" | code-simplification |
 | "ship", "merge", "PR", "finish" | finishing-a-development-branch |
 | "plan", "break down", "task list" | writing-plans |
+| "set up project", "no CLAUDE.md" | project-setup |
+| "check plugins", "audit" | plugin-audit |
 
 If intent is ambiguous, the plugin asks one clarifying question before routing.
 
