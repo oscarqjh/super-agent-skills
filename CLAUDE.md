@@ -10,7 +10,7 @@ The user says "I want to build X" and the plugin drives the entire lifecycle aut
 2. **writing-plans** -> implementation plan
 3. **subagent-driven-development** (or executing-plans) -> working code
 4. **requesting-code-review** -> verified quality
-5. **finishing-a-development-branch** -> merged/shipped
+5. **wrap-up** (checkpoint) or **finishing-a-development-branch** (merge/PR) -> shipped
 
 Domain skills (TDD, security, API design, etc.) auto-trigger during implementation based on context.
 

@@ -24,8 +24,6 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 - Architecture review expansion: 9-bullet axis with Hyrum's Law, coupling analysis (requesting-code-review)
 - Self-healing review loop: automated fix-and-re-review up to 3 rounds (requesting-code-review)
 - Review sizing gate: hard block on reviews >1000 lines (requesting-code-review)
-- Chain last mile: HARD-GATE on review→ship handoff, PreToolUse hook on git push, worktree-optional finishing
-- Backlog & changelog as first-class workflow artifacts under docs/super-agent-skills/
 
 ## [1.0.0] — 2026-04-13
 

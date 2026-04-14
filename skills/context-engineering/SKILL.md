@@ -189,7 +189,7 @@ Know where to save different types of knowledge:
 | What | Where | Why |
 |------|-------|-----|
 | Project conventions, tech stack, commands | CLAUDE.md | Loaded every session automatically |
-| Feature requirements, success criteria | `docs/specs/*.md` | Loaded when working on that feature |
+| Feature requirements, success criteria | `docs/super-agent-skills/specs/*.md` | Loaded when working on that feature |
 | Architectural decisions and rationale | ADRs in `docs/` | Loaded when revisiting that area |
 | User preferences, workflow patterns | Memory files | Recalled by agent as needed |
 | Current task progress | Conversation context | Lost on session end — summarize before closing |
