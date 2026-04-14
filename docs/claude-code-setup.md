@@ -13,11 +13,11 @@ Inside Claude Code, run:
 /plugin install super-agent-skills@oscarqjh-super-agent-skills
 ```
 
-### Option 2: Clone and Add Locally
+### Option 2: Clone and Load Locally
 
 ```bash
 git clone https://github.com/oscarqjh/super-agent-skills.git
-claude plugin add -- ./super-agent-skills
+claude --plugin-dir ./super-agent-skills
 ```
 
 Verify installation:
