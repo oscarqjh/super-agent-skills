@@ -14,6 +14,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 - SubagentStop + skill-scoped Stop hooks for deterministic post-review prompting
 - 4 new agent personas: architecture-reviewer, test-generator, dependency-auditor, migration-assistant
 - Skills updated to dispatch new agents (code review → architecture-reviewer, TDD → test-generator, security → dependency-auditor, routing → migration-assistant)
+- compound-engineering skill: multi-stream parallel development with worktree isolation (5 phases)
+- threat-modeling skill: proactive STRIDE security methodology (6 steps)
 
 ## [1.1.0] — 2026-04-14
 
