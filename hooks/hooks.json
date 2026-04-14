@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "If this command includes 'git push', have you invoked super-agent-skills:finishing-a-development-branch first? The finishing skill runs the pre-merge checklist (no TODOs, no console.logs, tests pass, lint clean) before pushing. If you haven't invoked it yet, do so now instead of pushing directly."
+            "prompt": "ADVISORY ONLY — do not block this command. If this command includes 'git push' and this is a feature branch being shipped (not a quick bugfix or doc update), consider whether super-agent-skills:finishing-a-development-branch or super-agent-skills:wrap-up should be invoked first for the pre-merge checklist. For small fixes, doc changes, and non-feature work, pushing directly is fine."
           }
         ]
       }
