@@ -10,18 +10,7 @@
         ]
       }
     ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "ADVISORY ONLY — do not block this command. If this command includes 'git push' and this is a feature branch being shipped (not a quick bugfix or doc update), consider whether super-agent-skills:finishing-a-development-branch or super-agent-skills:wrap-up should be invoked first for the pre-merge checklist. For small fixes, doc changes, and non-feature work, pushing directly is fine."
-          }
-        ]
-      }
-    ],
-    "SubagentStop": [
+"SubagentStop": [
       {
         "matcher": "super-agent-skills:code-reviewer",
         "hooks": [
