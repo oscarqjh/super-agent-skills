@@ -17,7 +17,7 @@ Domain skills (TDD, security, API design, etc.) auto-trigger during implementati
 ## Directory Structure
 
 - `skills/` — 25 skills organized by role (chain, domain, support, meta)
-- `agents/` — 3 subagent personas (code-reviewer, test-engineer, security-auditor)
+- `agents/` — 7 subagent personas (code-reviewer, test-engineer, security-auditor, architecture-reviewer, test-generator, dependency-auditor, migration-assistant)
 - `references/` — 4 checklists (security, performance, testing, accessibility)
 - `hooks/` — Session-start hook loads meta skill
 - `commands/` — 10 slash command shortcuts

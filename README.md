@@ -10,9 +10,9 @@ A standalone Claude Code plugin that combines orchestration (brainstorm → plan
    /plugin marketplace add oscarqjh/super-agent-skills
    /plugin install super-agent-skills@oscarqjh-super-agent-skills
 
-   # Or clone and add locally
+   # Or clone and load locally
    git clone https://github.com/oscarqjh/super-agent-skills.git
-   claude plugin add -- ./super-agent-skills
+   claude --plugin-dir ./super-agent-skills
    ```
 
    > **SSH errors?** The marketplace clones repos via SSH. If you don't have SSH keys set up on GitHub, either [add your SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) or switch to HTTPS for fetches only:
@@ -165,10 +165,14 @@ super-agent-skills/
 │   ├── systematic-debugging/      + root-cause tracing, defense-in-depth
 │   ├── writing-skills/            + best practices, testing guides
 │   └── ...
-├── agents/                        3 subagent personas
+├── agents/                        7 subagent personas
 │   ├── code-reviewer.md           Senior Staff Engineer, 5-axis review
 │   ├── test-engineer.md           QA Specialist, test strategy
-│   └── security-auditor.md        Security Engineer, OWASP
+│   ├── security-auditor.md        Security Engineer, OWASP
+│   ├── architecture-reviewer.md   Software Architect, design evaluation
+│   ├── test-generator.md          QA Engineer, autonomous test generation
+│   ├── dependency-auditor.md      Supply Chain Specialist, dependency audit
+│   └── migration-assistant.md     Migration Specialist, framework upgrades
 ├── references/                    4 checklists
 │   ├── security-checklist.md      OWASP Top 10, input validation, CORS
 │   ├── performance-checklist.md   Core Web Vitals, frontend/backend

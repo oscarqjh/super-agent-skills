@@ -82,6 +82,8 @@ describe('POST /api/tasks', () => {
 4. **Run all generated tests** — they should ALL FAIL (they test code that doesn't exist yet)
 5. **Proceed with normal TDD** — each failing test becomes a RED target. Make them pass one at a time.
 
+**Dispatch option:** For large test suites (10+ test cases), dispatch the `super-agent-skills:test-generator` agent to generate the full test file. This keeps the main context clean while producing comprehensive test coverage.
+
 ### Bulk RED → Incremental GREEN
 
 ```

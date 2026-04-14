@@ -349,6 +349,8 @@ When building applications that use LLMs:
 
 For detailed checklists, see `references/supply-chain-security.md`.
 
+**For thorough audits:** Dispatch the `super-agent-skills:dependency-auditor` agent for a full dependency tree audit covering security, licensing, maintenance health, and impact assessment.
+
 ## Common Rationalizations
 
 | Rationalization | Reality |

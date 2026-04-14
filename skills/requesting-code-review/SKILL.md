@@ -158,6 +158,8 @@ For security-sensitive changes (auth, user input, external data), the reviewer s
 
 For performance-sensitive changes (database queries, rendering, data processing), the reviewer should additionally invoke `super-agent-skills:performance-optimization` for a focused performance review.
 
+For architecture-significant changes (new abstractions, modified module boundaries, new public APIs), additionally dispatch `super-agent-skills:architecture-reviewer` for a focused design review.
+
 ## Self-Healing Review Loop
 
 When the reviewer finds Critical or Important issues, automate the fix-and-re-review cycle instead of manual back-and-forth.

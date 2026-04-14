@@ -54,6 +54,7 @@ Task arrives
     │   (update backlog, changelog, commit, next item)
     ├── Refactoring for clarity? ──────────────→ super-agent-skills:code-simplification
     ├── Writing docs/ADRs? ────────────────────→ super-agent-skills:documentation-and-adrs
+    ├── Migrating framework/library? ──────────→ super-agent-skills:migration-assistant
     └── Multiple independent problems? ────────→ super-agent-skills:dispatching-parallel-agents
 ```
 
