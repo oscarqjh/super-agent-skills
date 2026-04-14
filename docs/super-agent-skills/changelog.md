@@ -19,6 +19,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 - project-setup skill: scan codebase and generate lean CLAUDE.md (<100 lines) with organic growth
 - PostToolUseFailure hook: auto-suggests CLAUDE.md gotchas when commands fail
 - SessionStart hook: prompts for project-setup when no CLAUDE.md found
+- MCP integrations reference: guide for 5 recommended MCP servers with install commands
+- plugin-audit skill: advisory check for plugin conflicts and complement suggestions
+- /audit slash command
 
 ## [1.1.0] — 2026-04-14
 

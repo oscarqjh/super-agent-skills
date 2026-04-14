@@ -4,20 +4,24 @@
 (empty)
 
 ## Up Next
-- [ ] Phase 4: MCP integrations (Context7, Sentry, browser automation, database)
+- [ ] Phase 5: Structural improvements (code health gates, token tracking, feedback loops)
 
 ## Ideas (Unprioritized)
-- [ ] Shift-right testing skill (deferred — needs MCP integrations first)
-- [ ] Observability setup skill (deferred — could be a reference doc instead)
-- [ ] Phase 4: MCP integrations (Context7, Sentry, browser automation, database)
-- [ ] Phase 5: Structural improvements (code health gates, token tracking, feedback loops)
+- [ ] Shift-right testing skill (now feasible — MCP reference provides install guidance)
+- [ ] Observability setup skill (could be a reference doc instead)
 - [ ] Phase 6: Documentation (authoring guide, contributing guide, example workflows)
 - [ ] Improve natural language trigger robustness for skill routing
+- [ ] Investigate content-based PreToolUse matcher (narrow git push hook)
 - [ ] Investigate content-based PreToolUse matcher (narrow git push hook to only fire on push commands)
 
 ---
 
 ## Completed
+
+### Phase 4: MCP Reference + Plugin Audit (2026-04-14)
+- [x] MCP integrations reference (5 servers with install commands + skill comparison table)
+- [x] plugin-audit skill (4-step conflict/complement check, advisory only)
+- [x] /audit slash command
 
 ### Phase 3B: Project Setup Skill (2026-04-14)
 - [x] project-setup skill (7-step scan, <100 line CLAUDE.md, organic growth)
