@@ -1,7 +1,7 @@
 {
   "name": "super-agent-skills",
   "description": "Full-lifecycle engineering skills for AI coding agents — orchestration chain from brainstorm to ship, with production-grade engineering standards at every step.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "oscarqjh"
   },
