@@ -51,7 +51,7 @@ You MUST create a task for each of these items and complete them in order:
 3. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 4. **Propose 2-3 approaches** — with trade-offs and your recommendation
 5. **Present design** — in sections scaled to their complexity, get user approval after each section
-6. **Write design doc** — save to `docs/specs/YYYY-MM-DD-<topic>-design.md` and commit
+6. **Write design doc** — save to `docs/super-agent-skills/specs/YYYY-MM-DD-<topic>-design.md` and commit
 7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
 8. **Generate acceptance test skeletons** — extract success criteria from the spec and write test outlines (see below)
 9. **User reviews written spec** — ask user to review the spec file before proceeding
@@ -160,7 +160,7 @@ For each approach, stress-test against three criteria:
 
 **Documentation:**
 
-- Write the validated design (spec) to `docs/specs/YYYY-MM-DD-<topic>-design.md`
+- Write the validated design (spec) to `docs/super-agent-skills/specs/YYYY-MM-DD-<topic>-design.md`
   - (User preferences for spec location override this default)
 - Use elements-of-style:writing-clearly-and-concisely skill if available
 - Commit the design document to git
@@ -217,6 +217,13 @@ Generated from success criteria. These will be incorporated into the implementat
 - These are skeletons, not implementations — the implementer writes the actual test code during TDD
 
 This bridges the gap between "what we want" (spec) and "how we prove it works" (tests). The implementer doesn't invent test cases from scratch — they implement pre-defined acceptance criteria.
+
+**Backlog Update:**
+After writing the spec, add the work item to `docs/super-agent-skills/backlogs.md` under "In Progress":
+> "Added '[item name]' to the backlog under In Progress. Spec at `docs/super-agent-skills/specs/[path]`."
+
+If the user mentions a parallel idea during brainstorming (something unrelated to the current task), capture it in the backlog under "Ideas (Unprioritized)" so it doesn't get lost:
+> "Captured '[idea]' in the backlog Ideas section for later."
 
 **User Review Gate:**
 After the spec review loop passes, ask the user to review the written spec before proceeding:

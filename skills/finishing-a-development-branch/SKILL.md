@@ -180,6 +180,15 @@ git worktree remove <worktree-path>
 
 **If not using a worktree** (working directly on a branch), skip Step 5. The pre-merge checklist (Step 1.5) and completion options (Steps 2-4) still apply regardless of whether a worktree is involved.
 
+### Step 6: Update Backlog & Changelog
+
+After completing the chosen option (merge, PR, keep, or discard):
+
+1. **Update backlog:** Read `docs/super-agent-skills/backlogs.md`. Mark any related "In Progress" items as complete (`[x]`). Move completed items to the "Completed" section with today's date.
+2. **Update changelog:** Append a one-line entry to `docs/super-agent-skills/changelog.md` under `[Unreleased]` describing what was shipped.
+3. **Suggest next:** If the backlog "In Progress" is now empty, suggest the next item from "Up Next":
+   > "Backlog and changelog updated. Next in backlog: [next item]. Want to start on it?"
+
 ## Quick Reference
 
 | Option | Merge | Push | Keep Worktree | Cleanup Branch |

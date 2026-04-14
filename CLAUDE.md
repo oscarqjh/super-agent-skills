@@ -27,8 +27,8 @@ Domain skills (TDD, security, API design, etc.) auto-trigger during implementati
 - Every skill lives in `skills/<name>/SKILL.md` with YAML frontmatter (name, description)
 - Skill descriptions must be specific enough for Claude to match tasks to skills
 - Skills reference each other using `super-agent-skills:<skill-name>` namespace
-- Specs are saved to `docs/specs/YYYY-MM-DD-<topic>-design.md`
-- Plans are saved to `docs/plans/YYYY-MM-DD-<feature-name>.md`
+- Specs are saved to `docs/super-agent-skills/specs/YYYY-MM-DD-<topic>-design.md`
+- Plans are saved to `docs/super-agent-skills/plans/YYYY-MM-DD-<feature-name>.md`
 
 ## Skill Phases
 
