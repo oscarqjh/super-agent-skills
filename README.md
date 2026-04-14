@@ -106,6 +106,4 @@ On top of the merge, super-agent-skills adds: deterministic chain enforcement vi
 
 MIT
 
-## License
 
-MIT
