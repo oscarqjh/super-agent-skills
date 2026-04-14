@@ -6,6 +6,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- Wrap-up skill: lightweight end-of-phase checkpoint (backlog, changelog, docs, commit, suggest next)
+- /wrapup slash command
+- Backlog & changelog as first-class workflow artifacts under docs/super-agent-skills/
+- Chain enforcement: user prompt after code review (A: wrap up, B: ship it, C: keep going)
+- SubagentStop + skill-scoped Stop hooks for deterministic post-review prompting
+
 ## [1.1.0] — 2026-04-14
 
 ### Added

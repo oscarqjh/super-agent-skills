@@ -1,10 +1,9 @@
 # Backlog
 
 ## In Progress
-- [ ] P0.2: Backlog & changelog as first-class workflow artifacts — spec: docs/super-agent-skills/specs/2026-04-14-p0-backlog-changelog-design.md
+(empty)
 
 ## Up Next
-- [ ] P0.3: Deterministic chain enforcement (PostToolUse hooks, chain state tracking)
 - [ ] Phase 2: New agents (architecture-reviewer, test-generator, dependency-auditor, migration-assistant)
 
 ## Ideas (Unprioritized)
@@ -18,6 +17,20 @@
 ---
 
 ## Completed
+
+### P0.3: Chain enforcement + wrap-up skill (2026-04-14)
+- [x] New wrap-up skill (lightweight checkpoint: backlog, changelog, docs, commit, suggest next)
+- [x] Requesting-code-review: user prompt (A: wrap up, B: ship it, C: keep going) replaces forced handoff
+- [x] Skill-scoped Stop hook + SubagentStop hook for deterministic prompting
+- [x] Updated using-skills routing table and orchestration chain
+- [x] /wrapup slash command
+
+### P0.2: Backlog & changelog artifacts (2026-04-14)
+- [x] Restructured backlog to flat format (In Progress / Up Next / Ideas / Completed)
+- [x] Created changelog.md with Keep a Changelog format
+- [x] Brainstorming: backlog integration (add items, capture parallel ideas)
+- [x] Finishing-a-development-branch: Step 6 updates backlog + changelog
+- [x] Moved all artifacts to docs/super-agent-skills/
 
 ### P0.1: Chain last mile reliability (2026-04-14)
 - [x] HARD-GATE on requesting-code-review handoff
