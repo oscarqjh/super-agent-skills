@@ -4,10 +4,9 @@
 (empty)
 
 ## Up Next
-- [ ] Phase 2: New agents (architecture-reviewer, test-generator, dependency-auditor, migration-assistant)
+- [ ] Phase 3: New skills (compound engineering, shift-right testing, threat modeling, observability, project customization)
 
 ## Ideas (Unprioritized)
-- [ ] Phase 3: New skills (compound engineering, shift-right testing, threat modeling, observability, project customization)
 - [ ] Phase 4: MCP integrations (Context7, Sentry, browser automation, database)
 - [ ] Phase 5: Structural improvements (code health gates, token tracking, feedback loops)
 - [ ] Phase 6: Documentation (authoring guide, contributing guide, example workflows)
@@ -17,6 +16,13 @@
 ---
 
 ## Completed
+
+### Phase 2: New Agent Personas (2026-04-14)
+- [x] architecture-reviewer agent (5-dimension design evaluation)
+- [x] test-generator agent (autonomous test suite generation)
+- [x] dependency-auditor agent (supply chain audit)
+- [x] migration-assistant agent (framework/library migration)
+- [x] Skill references: requesting-code-review, TDD, security, using-skills routing
 
 ### P0.3: Chain enforcement + wrap-up skill (2026-04-14)
 - [x] New wrap-up skill (lightweight checkpoint: backlog, changelog, docs, commit, suggest next)

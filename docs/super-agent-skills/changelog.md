@@ -12,6 +12,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 - Backlog & changelog as first-class workflow artifacts under docs/super-agent-skills/
 - Chain enforcement: user prompt after code review (A: wrap up, B: ship it, C: keep going)
 - SubagentStop + skill-scoped Stop hooks for deterministic post-review prompting
+- 4 new agent personas: architecture-reviewer, test-generator, dependency-auditor, migration-assistant
+- Skills updated to dispatch new agents (code review → architecture-reviewer, TDD → test-generator, security → dependency-auditor, routing → migration-assistant)
 
 ## [1.1.0] — 2026-04-14
 
