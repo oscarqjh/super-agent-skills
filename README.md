@@ -87,11 +87,12 @@ See [Architecture](docs/architecture.md) for the full inventory and how everythi
 
 ## Documentation
 
-- [Architecture](docs/architecture.md) — complete process graph, skill inventory, hook system, core principles
-- [Changelog](docs/super-agent-skills/changelog.md) — version history
-- [Backlog](docs/super-agent-skills/backlogs.md) — what's planned next
+- [Architecture](docs/architecture.md) — process graph, skill inventory, hook system
+- [Example Workflows](docs/example-workflows.md) — end-to-end usage examples
+- [Skill Authoring Guide](docs/skill-authoring-guide.md) — how to create new skills
+- [Contributing](CONTRIBUTING.md) — how to contribute to this plugin
+- [Changelog](CHANGELOG.md) — release history
 - [MCP Integrations](references/mcp-integrations.md) — recommended MCP servers
-- [CLAUDE.md](CLAUDE.md) — plugin conventions
 
 ## Credits
 
