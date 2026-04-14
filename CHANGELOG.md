@@ -2,6 +2,17 @@
 
 All notable changes to the super-agent-skills plugin. For detailed development history, see [docs/super-agent-skills/changelog.md](docs/super-agent-skills/changelog.md).
 
+## [1.0.3] — 2026-04-14
+
+### Added
+- Session learning capture in wrap-up and finishing-a-development-branch (5 friction signals → CLAUDE.md/rules)
+- CONTRIBUTING.md, example workflows, skill authoring guide
+- CHANGELOG.md (public release changelog at root)
+- .gitignore for internal development artifacts
+
+### Fixed
+- Removed PreToolUse hook entirely (prompt-type hooks block instead of advising)
+
 ## [1.0.2] — 2026-04-14
 
 ### Fixed
