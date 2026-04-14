@@ -141,6 +141,7 @@ For each approach, stress-test against three criteria:
 - Scale each section to its complexity: a few sentences if straightforward, up to 200-300 words if nuanced
 - Ask after each section whether it looks right so far
 - Cover: architecture, components, data flow, error handling, testing
+- If the feature handles auth, user input, external APIs, payment, or PII, invoke `super-agent-skills:threat-modeling` to identify threats before finalizing the design. Append the threat model to the spec.
 - Be ready to go back and clarify if something doesn't make sense
 
 **Design for isolation and clarity:**

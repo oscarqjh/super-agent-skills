@@ -47,9 +47,11 @@ Task arrives
     │   ├── API work? ─────────────────────────→ super-agent-skills:api-and-interface-design
     │   ├── Need doc-verified code? ───────────→ super-agent-skills:source-driven-development
     │   └── Need better context? ──────────────→ super-agent-skills:context-engineering
+    ├── Security-sensitive feature design? ────────→ super-agent-skills:threat-modeling
     ├── Reviewing code? ───────────────────────→ super-agent-skills:requesting-code-review
     │   ├── Security concerns? ────────────────→ super-agent-skills:security-and-hardening
     │   └── Performance concerns? ─────────────→ super-agent-skills:performance-optimization
+    ├── Large feature with independent streams? ──→ super-agent-skills:compound-engineering
     ├── Checkpoint progress? ──────────────────→ super-agent-skills:wrap-up
     │   (update backlog, changelog, commit, next item)
     ├── Refactoring for clarity? ──────────────→ super-agent-skills:code-simplification

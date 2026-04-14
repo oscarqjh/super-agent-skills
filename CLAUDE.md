@@ -16,7 +16,7 @@ Domain skills (TDD, security, API design, etc.) auto-trigger during implementati
 
 ## Directory Structure
 
-- `skills/` — 25 skills organized by role (chain, domain, support, meta)
+- `skills/` — 27 skills organized by role (chain, domain, support, meta)
 - `agents/` — 7 subagent personas (code-reviewer, test-engineer, security-auditor, architecture-reviewer, test-generator, dependency-auditor, migration-assistant)
 - `references/` — 4 checklists (security, performance, testing, accessibility)
 - `hooks/` — Session-start hook loads meta skill
@@ -34,8 +34,8 @@ Domain skills (TDD, security, API design, etc.) auto-trigger during implementati
 
 - **Define:** brainstorming
 - **Plan:** writing-plans
-- **Build:** subagent-driven-development, executing-plans, incremental-implementation, test-driven-development, source-driven-development, context-engineering, frontend-ui-engineering, api-and-interface-design
-- **Verify:** systematic-debugging, browser-testing-with-devtools, verification-before-completion
+- **Build:** subagent-driven-development, executing-plans, incremental-implementation, test-driven-development, source-driven-development, context-engineering, frontend-ui-engineering, api-and-interface-design, compound-engineering
+- **Verify:** systematic-debugging, browser-testing-with-devtools, verification-before-completion, threat-modeling
 - **Review:** requesting-code-review, receiving-code-review, code-simplification, security-and-hardening, performance-optimization
 - **Ship:** wrap-up, finishing-a-development-branch, documentation-and-adrs
 

@@ -22,6 +22,8 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
 
+**For multi-stream features:** If the plan decomposes into 2+ independent work streams (e.g., backend + frontend + migration), consider using `super-agent-skills:compound-engineering` to orchestrate parallel execution across worktrees instead of running all tasks sequentially.
+
 ## Dependency Graph
 
 Before defining tasks, map what depends on what:
