@@ -71,6 +71,8 @@ Create a rules file that persists across sessions. This is the highest-leverage 
 [One short example of a well-written component in your style]
 ```
 
+**Automated setup:** Run `super-agent-skills:project-setup` to scan your project and generate a lean CLAUDE.md automatically. It only includes what Claude can't infer from the code — targeting under 100 lines.
+
 **Equivalent files for other tools:**
 - `.cursorrules` or `.cursor/rules/*.md` (Cursor)
 - `.windsurfrules` (Windsurf)

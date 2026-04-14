@@ -39,6 +39,7 @@ Task arrives
     ├── Need code review? ─────────────────────→ super-agent-skills:requesting-code-review
     ├── Implementation done? ──────────────────→ super-agent-skills:finishing-a-development-branch
     │
+    ├── New project / no CLAUDE.md? ───────────→ super-agent-skills:project-setup
     ├── Something broke? ──────────────────────→ super-agent-skills:systematic-debugging
     ├── Writing/running tests? ────────────────→ super-agent-skills:test-driven-development
     │   └── Browser-based? ────────────────────→ super-agent-skills:browser-testing-with-devtools
