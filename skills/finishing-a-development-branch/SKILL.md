@@ -189,6 +189,24 @@ After completing the chosen option (merge, PR, keep, or discard):
 3. **Suggest next:** If the backlog "In Progress" is now empty, suggest the next item from "Up Next":
    > "Backlog and changelog updated. Next in backlog: [next item]. Want to start on it?"
 
+### Step 7: Capture Learnings
+
+Before moving on, reflect on this work phase:
+
+| Question | If yes → |
+|----------|----------|
+| Did the user correct you about a convention? | Add to CLAUDE.md `## Gotchas` |
+| Did a command fail due to project-specific setup? | Add to CLAUDE.md `## Commands` |
+| Did the code reviewer flag a pattern violation? | Add to `.claude/rules/` as a path-scoped rule |
+| Did the self-healing review loop hit 3 rounds? | Note that the spec/plan was ambiguous — add clarity for next time |
+| Did you make the same mistake twice in this session? | Add to CLAUDE.md `## Gotchas` (high priority — this will recur) |
+
+If any apply, offer to persist:
+
+> "I noticed [learning]. Want me to add this to CLAUDE.md so I remember next time?"
+
+Only persist things Claude would get wrong without being told. Don't add obvious conventions Claude already knows.
+
 ## Quick Reference
 
 | Option | Merge | Push | Keep Worktree | Cleanup Branch |
