@@ -42,7 +42,7 @@ claude mcp add sentry -- npx -y @sentry/mcp-server
 
 **Install:**
 ```bash
-claude mcp add browser -- npx -y @anthropic/mcp-browser
+claude mcp add playwright -- npx -y @playwright/mcp --browser chromium
 ```
 
 ### PostgreSQL — Database Access
@@ -55,10 +55,10 @@ claude mcp add browser -- npx -y @anthropic/mcp-browser
 
 **Install:**
 ```bash
-claude mcp add postgres -- npx -y @anthropic/mcp-postgres
+claude mcp add postgres -- npx -y @modelcontextprotocol/server-postgres $DATABASE_URL
 ```
 
-**Requires:** `DATABASE_URL` environment variable.
+**Requires:** Pass the `DATABASE_URL` connection string as argument (e.g., `postgresql://user:pass@localhost:5432/mydb`).
 
 ### GitHub — Repository Integration
 
