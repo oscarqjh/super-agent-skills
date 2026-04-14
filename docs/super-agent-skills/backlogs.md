@@ -4,7 +4,7 @@
 (empty)
 
 ## Up Next
-- [ ] Phase 3B: Remaining new skills (project customization)
+- [ ] Phase 4: MCP integrations (Context7, Sentry, browser automation, database)
 
 ## Ideas (Unprioritized)
 - [ ] Shift-right testing skill (deferred — needs MCP integrations first)
@@ -18,6 +18,12 @@
 ---
 
 ## Completed
+
+### Phase 3B: Project Setup Skill (2026-04-14)
+- [x] project-setup skill (7-step scan, <100 line CLAUDE.md, organic growth)
+- [x] SessionStart hook prompts when no CLAUDE.md found
+- [x] PostToolUseFailure hook suggests gotchas on command failures
+- [x] /project-setup command
 
 ### Phase 3A: New Skills — Compound Engineering + Threat Modeling (2026-04-14)
 - [x] compound-engineering skill (5-phase multi-stream parallel orchestration)

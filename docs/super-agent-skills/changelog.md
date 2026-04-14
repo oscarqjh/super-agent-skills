@@ -16,6 +16,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 - Skills updated to dispatch new agents (code review → architecture-reviewer, TDD → test-generator, security → dependency-auditor, routing → migration-assistant)
 - compound-engineering skill: multi-stream parallel development with worktree isolation (5 phases)
 - threat-modeling skill: proactive STRIDE security methodology (6 steps)
+- project-setup skill: scan codebase and generate lean CLAUDE.md (<100 lines) with organic growth
+- PostToolUseFailure hook: auto-suggests CLAUDE.md gotchas when commands fail
+- SessionStart hook: prompts for project-setup when no CLAUDE.md found
 
 ## [1.1.0] — 2026-04-14
 
