@@ -1,6 +1,12 @@
 ---
 name: requesting-code-review
 description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements
+hooks:
+  Stop:
+    - hooks:
+        - type: command
+          command: "echo '{\"decision\": \"block\", \"reason\": \"Before stopping, you must prompt the user with completion options: (A) Wrap up, (B) Ship it, (C) Keep going. Do not commit or push directly.\"}'"
+          once: true
 ---
 
 # Requesting Code Review
@@ -236,6 +242,22 @@ See template at: requesting-code-review/code-reviewer.md
 
 ## Handoff
 
+When review is complete and all issues are resolved, prompt the user:
+
+> "Review passed. What would you like to do next?"
+>
+> **A) Wrap up** — update backlog, changelog, commit, move to next item
+> **B) Ship it** — pre-merge checklist, merge/PR, branch cleanup
+> **C) Keep going** — continue working, more changes needed
+>
+> Or tell me what you'd like to do.
+
+**Route based on response:**
+- A / "wrap up" / "done" / "checkpoint" → invoke `super-agent-skills:wrap-up`
+- B / "ship" / "merge" / "PR" → invoke `super-agent-skills:finishing-a-development-branch`
+- C / "keep going" / "more changes" → return to implementation
+- Specific instruction → follow it
+
 <HARD-GATE>
-When review is complete and all issues are resolved, you MUST invoke `super-agent-skills:finishing-a-development-branch`. Do NOT commit, push, or claim the work is done without invoking this skill first. Even if the user says "commit" or "push" — invoke finishing-a-development-branch, which will handle the commit/push after running the pre-merge checklist.
+Do NOT commit, push, or claim the work is done without prompting the user first. Even if the user said "commit" earlier in the session — after code review, always present the options above.
 </HARD-GATE>

@@ -16,11 +16,11 @@ Domain skills (TDD, security, API design, etc.) auto-trigger during implementati
 
 ## Directory Structure
 
-- `skills/` — 24 skills organized by role (chain, domain, support, meta)
+- `skills/` — 25 skills organized by role (chain, domain, support, meta)
 - `agents/` — 3 subagent personas (code-reviewer, test-engineer, security-auditor)
 - `references/` — 4 checklists (security, performance, testing, accessibility)
 - `hooks/` — Session-start hook loads meta skill
-- `.claude/commands/` — 8 slash command shortcuts
+- `commands/` — 10 slash command shortcuts
 
 ## Conventions
 
@@ -37,7 +37,7 @@ Domain skills (TDD, security, API design, etc.) auto-trigger during implementati
 - **Build:** subagent-driven-development, executing-plans, incremental-implementation, test-driven-development, source-driven-development, context-engineering, frontend-ui-engineering, api-and-interface-design
 - **Verify:** systematic-debugging, browser-testing-with-devtools, verification-before-completion
 - **Review:** requesting-code-review, receiving-code-review, code-simplification, security-and-hardening, performance-optimization
-- **Ship:** finishing-a-development-branch, documentation-and-adrs
+- **Ship:** wrap-up, finishing-a-development-branch, documentation-and-adrs
 
 ## This Plugin Replaces
 

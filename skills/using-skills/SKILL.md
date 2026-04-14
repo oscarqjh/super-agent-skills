@@ -50,6 +50,8 @@ Task arrives
     ├── Reviewing code? ───────────────────────→ super-agent-skills:requesting-code-review
     │   ├── Security concerns? ────────────────→ super-agent-skills:security-and-hardening
     │   └── Performance concerns? ─────────────→ super-agent-skills:performance-optimization
+    ├── Checkpoint progress? ──────────────────→ super-agent-skills:wrap-up
+    │   (update backlog, changelog, commit, next item)
     ├── Refactoring for clarity? ──────────────→ super-agent-skills:code-simplification
     ├── Writing docs/ADRs? ────────────────────→ super-agent-skills:documentation-and-adrs
     └── Multiple independent problems? ────────→ super-agent-skills:dispatching-parallel-agents
@@ -60,10 +62,10 @@ Task arrives
 For any creative/building task, the default flow is:
 
 ```
-brainstorming → writing-plans → subagent-driven-development → requesting-code-review → finishing-a-development-branch
+brainstorming → writing-plans → subagent-driven-development → requesting-code-review → user chooses: wrap-up OR finishing-a-development-branch
 ```
 
-Each skill hands off to the next automatically. You don't need to invoke the chain manually — just start with brainstorming and it flows.
+Each skill hands off to the next automatically. After code review, you're prompted to choose: wrap up (lightweight checkpoint) or ship it (merge/PR). Just start with brainstorming and it flows.
 
 ## Using Skills
 

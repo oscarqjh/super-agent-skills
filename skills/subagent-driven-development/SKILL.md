@@ -95,7 +95,7 @@ digraph process {
 }
 ```
 
-**Chain completion:** After requesting-code-review approves the implementation, it will invoke `super-agent-skills:finishing-a-development-branch` to handle the final commit/push/merge. Do NOT commit or push directly — the chain handles it.
+**Chain completion:** After requesting-code-review approves the implementation, it will prompt the user with completion options: wrap up (lightweight checkpoint), ship it (merge/PR), or keep going. Do NOT commit or push directly — the chain handles it.
 
 ## Model Selection
 
@@ -372,7 +372,8 @@ If any issues are found, fix them before proceeding to the final code review.
 - **super-agent-skills:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
 - **super-agent-skills:writing-plans** - Creates the plan this skill executes
 - **super-agent-skills:requesting-code-review** - Code review template for reviewer subagents
-- **super-agent-skills:finishing-a-development-branch** - Complete development after all tasks
+- **super-agent-skills:finishing-a-development-branch** - Complete development after all tasks (branch-based workflows)
+- **super-agent-skills:wrap-up** - Lightweight checkpoint after all tasks (single-branch workflows)
 
 **Subagents should use:**
 - **super-agent-skills:test-driven-development** - Subagents follow TDD for each task
