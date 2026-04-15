@@ -14,6 +14,11 @@ IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
 </IMPORTANT>
 HOOK_OUTPUT
 
+# Inject generated capability summary
+if [ -f "${CLAUDE_PLUGIN_ROOT}/generated/session-start-capabilities.md" ]; then
+  cat "${CLAUDE_PLUGIN_ROOT}/generated/session-start-capabilities.md"
+fi
+
 # Check for CLAUDE.md in the project
 if [ ! -f "CLAUDE.md" ] && [ ! -f ".claude/CLAUDE.md" ]; then
   cat <<'SETUP_MSG'

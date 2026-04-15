@@ -12,7 +12,7 @@ companions:
   - id: chrome-devtools
     type: mcp-server
     package: "@anthropic/chrome-devtools-mcp"
-    description: "Real browser debugging with DOM, console, network, and performance inspection"
+    description: "Do real browser debugging with DOM, console, network, and performance inspection"
     when: "browser UI debugging or visual verification needed"
     required: false
 autoTriggers:
