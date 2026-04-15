@@ -1,6 +1,9 @@
 ---
 name: plugin-audit
-description: Check installed plugins for conflicts with super-agent-skills and suggest complementary MCP servers. Use to optimize your plugin setup.
+description: "Check installed plugins for conflicts with super-agent-skills and suggest complementary MCP servers. Use to optimize your plugin setup."
+phase: meta
+produces:
+  - audit-report
 ---
 
 # Plugin Audit

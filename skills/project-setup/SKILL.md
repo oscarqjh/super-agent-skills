@@ -1,6 +1,9 @@
 ---
 name: project-setup
-description: Scan a project and generate an effective CLAUDE.md. Use when starting work on a project that has no CLAUDE.md, or when the existing CLAUDE.md needs refreshing. Also handles organic growth — persisting corrections and gotchas over time.
+description: "Scan a project and generate an effective CLAUDE.md. Use when starting work on a project that has no CLAUDE.md, or when the existing CLAUDE.md needs refreshing. Also handles organic growth — persisting corrections and gotchas over time."
+phase: meta
+produces:
+  - claude-md
 ---
 
 # Project Setup

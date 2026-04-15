@@ -26,9 +26,18 @@
 | subagent-driven-development | working-code | — |
 | test-driven-development | tested-code | — |
 
+### verify
+| Skill | Produces | Companions |
+|-------|----------|------------|
+| browser-testing-with-devtools | visual-verification, dom-state, console-logs, network-traces | chrome-devtools (mcp-server) |
+| systematic-debugging | root-cause-analysis | — |
+| verification-before-completion | verification-evidence | — |
+
 ### review
 | Skill | Produces | Companions |
 |-------|----------|------------|
+| code-simplification | simplified-code | — |
+| receiving-code-review | reviewed-changes | — |
 | requesting-code-review | review-report | — |
 
 ### ship
@@ -36,6 +45,21 @@
 |-------|----------|------------|
 | finishing-a-development-branch | merged-code | — |
 | wrap-up | checkpoint | — |
+
+### support
+| Skill | Produces | Companions |
+|-------|----------|------------|
+| dispatching-parallel-agents | parallel-results | — |
+| executing-plans | executed-plan | — |
+| using-git-worktrees | isolated-workspace | — |
+| writing-skills | validated-skill | — |
+
+### meta
+| Skill | Produces | Companions |
+|-------|----------|------------|
+| plugin-audit | audit-report | — |
+| project-setup | claude-md | — |
+| using-skills | routing-guidance | — |
 
 ## Workflow Chains
 
@@ -51,9 +75,11 @@ executing-plans → requesting-code-review → [wrap-up | finishing-a-developmen
 | Intent | Routes To |
 |--------|----------|
 | (see /superthink) | brainstorming |
+| (see /superthink) | code-simplification |
 | (see /superthink) | context-engineering |
 | (see /superthink) | finishing-a-development-branch |
 | (see /superthink) | requesting-code-review |
+| (see /superthink) | systematic-debugging |
 | (see /superthink) | test-driven-development |
 | (see /superthink) | writing-plans |
 
@@ -64,6 +90,8 @@ executing-plans → requesting-code-review → [wrap-up | finishing-a-developmen
 | task touches API endpoints | api-and-interface-design |
 | task defines module boundaries | api-and-interface-design |
 | task creates REST or GraphQL endpoints | api-and-interface-design |
+| browser debugging needed | browser-testing-with-devtools |
+| visual verification of UI required | browser-testing-with-devtools |
 | architecture decision needed | documentation-and-adrs |
 | public API change | documentation-and-adrs |
 | task modifies UI components | frontend-ui-engineering |

@@ -1,6 +1,13 @@
 ---
 name: systematic-debugging
-description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
+description: "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes"
+phase: verify
+produces:
+  - root-cause-analysis
+chainsTo:
+  - test-driven-development
+chainsFrom:
+  - superthink
 ---
 
 # Systematic Debugging

@@ -1,6 +1,14 @@
 ---
 name: executing-plans
-description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
+description: "Use when you have a written implementation plan to execute in a separate session with review checkpoints"
+phase: support
+produces:
+  - executed-plan
+chainsTo:
+  - requesting-code-review
+  - finishing-a-development-branch
+chainsFrom:
+  - writing-plans
 ---
 
 # Executing Plans

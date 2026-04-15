@@ -1,6 +1,23 @@
 ---
 name: browser-testing-with-devtools
-description: Tests in real browsers. Use when building or debugging anything that runs in a browser. Use when you need to inspect the DOM, capture console errors, analyze network requests, profile performance, or verify visual output with real runtime data via Chrome DevTools MCP.
+description: "Tests in real browsers. Use when building or debugging anything that runs in a browser. Use when you need to inspect the DOM, capture console errors, analyze network requests, profile performance, or verify visual output with real runtime data via Chrome DevTools MCP."
+when_to_use: "DOM inspection, console errors, network requests, visual verification. Uses Chrome DevTools MCP for real browser debugging."
+phase: verify
+produces:
+  - visual-verification
+  - dom-state
+  - console-logs
+  - network-traces
+companions:
+  - id: chrome-devtools
+    type: mcp-server
+    package: "@anthropic/chrome-devtools-mcp"
+    description: "Real browser debugging with DOM, console, network, and performance inspection"
+    when: "browser UI debugging or visual verification needed"
+    required: false
+autoTriggers:
+  - "browser debugging needed"
+  - "visual verification of UI required"
 ---
 
 # Browser Testing with DevTools
