@@ -1,6 +1,12 @@
 ---
 name: security-and-hardening
-description: Hardens code against vulnerabilities. Use when handling user input, authentication, data storage, or external integrations. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services.
+description: "Hardens code against vulnerabilities. Use when handling user input, authentication, data storage, or external integrations. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services."
+phase: build
+produces:
+  - hardened-code
+autoTriggers:
+  - "task handles user input or authentication"
+  - "task handles external data or integrations"
 ---
 
 # Security and Hardening

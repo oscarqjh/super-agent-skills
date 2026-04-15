@@ -1,6 +1,19 @@
 ---
 name: source-driven-development
-description: Grounds every implementation decision in official documentation. Use when you want authoritative, source-cited code free from outdated patterns. Use when building with any framework or library where correctness matters.
+description: "Grounds every implementation decision in official documentation. Use when you want authoritative, source-cited code free from outdated patterns. Use when building with any framework or library where correctness matters."
+when_to_use: "building with any framework or library. Enhanced by Context7 MCP for live documentation lookup."
+phase: build
+produces:
+  - doc-verified-code
+companions:
+  - id: context7
+    type: mcp-server
+    package: "context7"
+    description: "Fetch live framework documentation for source-verified implementation"
+    when: "using any framework or library API"
+    required: false
+autoTriggers:
+  - "task uses framework-specific APIs"
 ---
 
 # Source-Driven Development

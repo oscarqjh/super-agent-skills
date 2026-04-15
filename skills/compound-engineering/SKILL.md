@@ -1,6 +1,13 @@
 ---
 name: compound-engineering
-description: Orchestrates multi-stream parallel feature development. Use when a feature decomposes into 2+ independent work streams that can be built simultaneously in separate worktrees. For single-stream execution, use subagent-driven-development instead.
+description: "Orchestrates multi-stream parallel feature development. Use when a feature decomposes into 2+ independent work streams that can be built simultaneously in separate worktrees. For single-stream execution, use subagent-driven-development instead."
+phase: build
+produces:
+  - multi-stream-code
+chainsTo:
+  - requesting-code-review
+chainsFrom:
+  - writing-plans
 ---
 
 # Compound Engineering

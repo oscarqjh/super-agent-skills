@@ -1,6 +1,11 @@
 ---
 name: threat-modeling
-description: Proactive security design using STRIDE methodology. Use when building features that handle authentication, user input, external APIs, payment, PII, or multi-tenant access. Identifies threats before implementation so mitigations are designed in, not bolted on.
+description: "Proactive security design using STRIDE methodology. Use when building features that handle authentication, user input, external APIs, payment, PII, or multi-tenant access. Identifies threats before implementation so mitigations are designed in, not bolted on."
+phase: define
+produces:
+  - threat-model
+chainsFrom:
+  - brainstorming
 ---
 
 # Threat Modeling
