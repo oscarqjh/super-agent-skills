@@ -57,11 +57,44 @@ Every skill should include these sections:
 
 See [docs/skill-authoring-guide.md](docs/skill-authoring-guide.md) for the full guide with examples.
 
-### 3. Add to routing
+### 3. Add frontmatter fields
 
-Update `skills/using-skills/SKILL.md` routing tree so Claude knows when to invoke your skill.
+Add the custom capability fields to your skill's frontmatter:
 
-### 4. Test
+```yaml
+---
+name: my-new-skill
+description: "..."
+phase: build                    # define|plan|build|verify|review|ship|support|meta
+produces:
+  - artifact-name               # what this skill outputs
+chainsTo:
+  - next-skill-name             # next skill in workflow (optional)
+chainsFrom:
+  - superthink                  # previous skill or entry point (optional)
+autoTriggers:                   # contexts that auto-invoke this skill (optional)
+  - "task involves X"
+---
+```
+
+### 4. Run the build script
+
+After editing any SKILL.md frontmatter, regenerate the capability index:
+
+```bash
+node scripts/generate-capability-index.js
+```
+
+This regenerates:
+- `generated/session-start-capabilities.md` — companion tools table injected at session start
+- `generated/routing-table.md` — skill routing table (also auto-updates `using-skills/SKILL.md`)
+- `generated/when-to-use-suggestions.md` — review for description gaps
+
+**Always commit the `generated/` files alongside your frontmatter changes.** End users don't run the build script — they use the committed generated files.
+
+The script validates that all `chainsTo`/`chainsFrom` references point to existing skills and will error if a reference is broken.
+
+### 5. Test
 
 ```bash
 claude --plugin-dir ./super-agent-skills
@@ -111,8 +144,10 @@ Use argument if provided: $ARGUMENTS
 
 Before submitting a PR, verify:
 
-- [ ] Skill has valid YAML frontmatter (name + description)
+- [ ] Skill has valid YAML frontmatter (name, description, phase)
 - [ ] Description includes trigger phrases and is under 250 characters
+- [ ] `node scripts/generate-capability-index.js` runs without errors
+- [ ] `generated/` files committed alongside frontmatter changes
 - [ ] All standard sections present (overview, when to use, process, anti-rationalizations, red flags, verification)
 - [ ] Anti-rationalization entries are specific (not generic "don't skip steps")
 - [ ] Cross-references use `super-agent-skills:` namespace
