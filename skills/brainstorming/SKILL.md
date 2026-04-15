@@ -1,6 +1,21 @@
 ---
 name: brainstorming
 description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+when_to_use: "creating features, building components. Includes browser-based visual companion for mockups and diagrams."
+phase: define
+produces:
+  - design-spec
+  - acceptance-tests
+companions:
+  - id: visual-companion
+    type: browser-server
+    description: "Render visual mockups, wireframes, and design comparisons in a browser"
+    when: "topic involves visual design questions"
+    required: false
+chainsTo:
+  - writing-plans
+chainsFrom:
+  - superthink
 ---
 
 # Brainstorming Ideas Into Designs

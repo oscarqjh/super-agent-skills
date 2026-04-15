@@ -1,6 +1,13 @@
 ---
 name: subagent-driven-development
-description: Use when executing implementation plans with independent tasks in the current session
+description: "Use when executing implementation plans with independent tasks in the current session"
+phase: build
+produces:
+  - working-code
+chainsTo:
+  - requesting-code-review
+chainsFrom:
+  - writing-plans
 ---
 
 # Subagent-Driven Development

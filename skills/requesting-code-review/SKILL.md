@@ -7,6 +7,17 @@ hooks:
         - type: command
           command: "echo '{\"decision\": \"block\", \"reason\": \"Before stopping, you must prompt the user with completion options: (A) Wrap up, (B) Ship it, (C) Keep going. Do not commit or push directly.\"}'"
           once: true
+phase: review
+produces:
+  - review-report
+chainsTo:
+  - wrap-up
+  - finishing-a-development-branch
+chainsFrom:
+  - superthink
+  - subagent-driven-development
+  - executing-plans
+  - compound-engineering
 ---
 
 # Requesting Code Review

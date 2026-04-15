@@ -1,6 +1,11 @@
 ---
 name: wrap-up
-description: Lightweight end-of-phase checkpoint. Use after completing a task or feature to update backlog, changelog, commit, and move to the next item. For branch-based workflows with merge/PR, use finishing-a-development-branch instead.
+description: "Lightweight end-of-phase checkpoint. Use after completing a task or feature to update backlog, changelog, commit, and move to the next item. For branch-based workflows with merge/PR, use finishing-a-development-branch instead."
+phase: ship
+produces:
+  - checkpoint
+chainsFrom:
+  - requesting-code-review
 ---
 
 # Wrap Up
