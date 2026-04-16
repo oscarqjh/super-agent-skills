@@ -106,18 +106,16 @@ digraph process {
 
 ## Model Selection
 
-Use the least powerful model that can handle each role to conserve cost and increase speed.
+| Role | Model | Notes |
+|------|-------|-------|
+| Implementer | `"sonnet"` | Default for all tasks |
+| Spec compliance reviewer | `"sonnet"` | — |
+| Code quality reviewer | `"sonnet"` | — |
+| Final integration reviewer | `"sonnet"` | Upgrade to user's main model for complex multi-stream integrations |
 
-**Mechanical implementation tasks** (isolated functions, clear specs, 1-2 files): use a fast, cheap model. Most implementation tasks are mechanical when the plan is well-specified.
+Set `model: "sonnet"` explicitly in every Agent tool call for these roles.
 
-**Integration and judgment tasks** (multi-file coordination, pattern matching, debugging): use a standard model.
-
-**Architecture, design, and review tasks**: use the most capable available model.
-
-**Task complexity signals:**
-- Touches 1-2 files with a complete spec → cheap model
-- Touches multiple files with integration concerns → standard model
-- Requires design judgment or broad codebase understanding → most capable model
+**When to upgrade the final reviewer:** If the implementation spans 5+ tasks touching many files with complex integration concerns, use the user's main model for the final integration review. For standard implementations, sonnet is sufficient.
 
 ## Handling Implementer Status
 
