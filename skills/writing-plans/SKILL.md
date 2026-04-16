@@ -96,6 +96,16 @@ Each vertical slice delivers working, testable functionality.
 - "Run the tests and make sure they pass" - step
 - "Commit" - step
 
+## Inline vs Delegated Steps
+
+This skill has two execution modes:
+
+**Inline (runs on your model):** The thinking work — dependency graph construction, task ordering, vertical slice design, file structure decisions, scope check. These steps require judgment and conversation context. Do them yourself.
+
+**Delegated (dispatched to subagent):** The writing work — turning the task list you've defined into a complete plan document following the required format. Once you have a finalized task list with dependencies and file maps, dispatch a plan-writer subagent using `skills/writing-plans/plan-writer-prompt.md`.
+
+The boundary: when your task list is complete and ordered, switch to delegation.
+
 ## Plan Document Header
 
 **Every plan MUST start with this header:**
@@ -177,7 +187,7 @@ Every step must contain the actual content an engineer needs. These are **plan f
 
 ## Self-Review
 
-After writing the complete plan, look at the spec with fresh eyes and check the plan against it. This is a checklist you run yourself — not a subagent dispatch.
+After the plan-writer subagent completes, look at the plan with fresh eyes and check it against the spec. This is a checklist you run yourself inline — not a subagent dispatch. The dispatch overhead is not worth it for a quick check.
 
 **1. Spec coverage:** Skim each section/requirement in the spec. Can you point to a task that implements it? List any gaps.
 
