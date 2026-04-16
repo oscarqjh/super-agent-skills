@@ -83,5 +83,5 @@ Report one of:
 - **DONE** — spec passes all four checks, ready for user review
 - **DONE_WITH_CONCERNS** — spec is mostly good but has issues worth the orchestrator addressing (listed above)
 - **NEEDS_CONTEXT** — cannot assess without more context (explain what's missing)
-- **BLOCKED** — a fundamental problem prevents writing (explain)
+- **BLOCKED** — a fundamental problem prevents review, or file cannot be read (explain)
 ```
