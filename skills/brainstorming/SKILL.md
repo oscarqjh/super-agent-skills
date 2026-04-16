@@ -66,8 +66,8 @@ You MUST create a task for each of these items and complete them in order:
 3. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 4. **Propose 2-3 approaches** — with trade-offs and your recommendation
 5. **Present design** — in sections scaled to their complexity, get user approval after each section
-6. **Write design doc** — save to `docs/super-agent-skills/specs/YYYY-MM-DD-<topic>-design.md` and commit
-7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
+6. **Write design doc** — gather context from the conversation (all approved decisions, constraints, success criteria, approaches considered, existing patterns), then **delegate to sonnet subagent** using `skills/brainstorming/spec-writer-prompt.md`. Review subagent output before proceeding: does it match design decisions? Any placeholders? All success criteria present?
+7. **Spec self-review** — **delegate to sonnet subagent** using `skills/brainstorming/spec-reviewer-prompt.md`. Read reviewer output. Patch minor issues inline. Note design questions for the user review gate.
 8. **Generate acceptance test skeletons** — extract success criteria from the spec and write test outlines (see below)
 9. **User reviews written spec** — ask user to review the spec file before proceeding
 10. **Transition to implementation** — invoke writing-plans skill to create implementation plan
@@ -196,14 +196,13 @@ The spec should cover these areas (scaled to project complexity):
    - Never do: commit secrets, remove failing tests without approval
 
 **Spec Self-Review:**
-After writing the spec document, look at it with fresh eyes:
+After writing the spec document, dispatch a spec-reviewer subagent using `skills/brainstorming/spec-reviewer-prompt.md` with the spec path.
 
-1. **Placeholder scan:** Any "TBD", "TODO", incomplete sections, or vague requirements? Fix them.
-2. **Internal consistency:** Do any sections contradict each other? Does the architecture match the feature descriptions?
-3. **Scope check:** Is this focused enough for a single implementation plan, or does it need decomposition?
-4. **Ambiguity check:** Could any requirement be interpreted two different ways? If so, pick one and make it explicit.
+Read the reviewer's output. For each concern:
+- If it's a clear gap (missing section, internal contradiction): patch it inline using the Write tool.
+- If it requires a design decision: note it for the user review gate.
 
-Fix any issues inline. No need to re-review — just fix and move on.
+Do not re-dispatch the reviewer after patching — proceed to the user review gate.
 
 **Acceptance Test Generation:**
 
