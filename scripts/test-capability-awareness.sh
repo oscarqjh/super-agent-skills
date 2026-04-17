@@ -468,6 +468,77 @@ run_test \
   ---
 
 # ===========================================================================
+# Execution Route Tests (LLM)
+# ===========================================================================
+
+echo ""
+echo "---------------------------------------------"
+echo " Execution Route Awareness (LLM)"
+echo "---------------------------------------------"
+echo ""
+
+# ---------------------------------------------------------------------------
+# Test 23: /superthink OPTIMIZE route
+# ---------------------------------------------------------------------------
+run_test \
+  "superthink OPTIMIZE: routes to performance-optimization" \
+  "/super-agent-skills:superthink The API response time has degraded to 3 seconds, we need to speed it up. Don't start working — just tell me which skill you'd route to." \
+  90 \
+  "performance-optimization" "performance" "optimization" \
+  ---
+
+# ---------------------------------------------------------------------------
+# Test 24: /superthink SECURE route
+# ---------------------------------------------------------------------------
+run_test \
+  "superthink SECURE: routes to security-and-hardening" \
+  "/super-agent-skills:superthink We need to harden our authentication system against common OWASP vulnerabilities. Don't start working — just tell me which skill you'd route to." \
+  90 \
+  "security-and-hardening" "security" "hardening" \
+  ---
+
+# ---------------------------------------------------------------------------
+# Test 25: /superthink SETUP route
+# ---------------------------------------------------------------------------
+run_test \
+  "superthink SETUP: routes to project-setup" \
+  "/super-agent-skills:superthink I just cloned this repo and need to set it up with a CLAUDE.md. Don't start working — just tell me which skill you'd route to." \
+  90 \
+  "project-setup" "setup" \
+  ---
+
+# ---------------------------------------------------------------------------
+# Test 26: Multi-intent decomposition
+# ---------------------------------------------------------------------------
+run_test \
+  "Multi-intent: agent decomposes compound request into multiple intents" \
+  "/super-agent-skills:superthink Fix the auth bug then add tests for it then ship. Don't start working — just tell me the full execution route you would create." \
+  90 \
+  "systematic-debugging" "test-driven-development" "finishing" \
+  ---
+
+# ---------------------------------------------------------------------------
+# Test 27: Agent knows about CHECK BACKLOG terminal step
+# ---------------------------------------------------------------------------
+run_test \
+  "CHECK BACKLOG: agent includes backlog check in execution route" \
+  "/super-agent-skills:superthink I want to build a new login page. Don't start working — just tell me the full execution route you would create, including the final step." \
+  90 \
+  "CHECK BACKLOG" "backlog" \
+  ---
+
+# ---------------------------------------------------------------------------
+# Test 28: Agent understands chain enforcement
+# ---------------------------------------------------------------------------
+run_test \
+  "HARD-GATE: agent knows chain continues without asking" \
+  "When using /superthink, after completing a skill in the execution route, should you ask the user what to do next or continue to the next route step? Answer in one sentence." \
+  90 \
+  "continue" "next" "invoke" "automatically" \
+  --- \
+  "ask the user" "let you decide"
+
+# ===========================================================================
 # Execution Route Structural Tests (no LLM — fast, deterministic)
 # ===========================================================================
 
