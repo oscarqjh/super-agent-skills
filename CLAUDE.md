@@ -1,34 +1,39 @@
-# super-agent-skills
+# oscarqjh-super-agent-skills
 
-A standalone Claude Code plugin that combines orchestration (brainstorm -> plan -> execute -> review) with production-grade engineering standards (anti-rationalizations, 5-axis review, OWASP, Hyrum's Law).
+A Claude Code plugin marketplace. Each plugin lives in `plugins/<name>/`.
 
-## How It Works
+## Repo Structure
 
-The user says "I want to build X" and the plugin drives the entire lifecycle automatically via skill-to-skill handoffs:
+```
+plugins/
+  super-agent-skills/     — full-lifecycle engineering skills (brainstorm → ship)
+  caveman-agent-skills/   — (planned)
+scripts/                  — dev tooling (tests, build scripts)
+docs/                     — internal specs, plans, backlogs
+output/                   — test output (gitignored)
+```
 
-1. **brainstorming** -> design spec
-2. **writing-plans** -> implementation plan
-3. **subagent-driven-development** (or executing-plans) -> working code
-4. **requesting-code-review** -> verified quality
-5. **wrap-up** (checkpoint) or **finishing-a-development-branch** (merge/PR) -> shipped
+## Plugin: super-agent-skills
 
-Domain skills (TDD, security, API design, etc.) auto-trigger during implementation based on context.
+Full-lifecycle orchestration (brainstorm → plan → execute → review → ship) with production-grade engineering standards.
 
-## Directory Structure
+### Plugin Directory Structure
+
+All paths below are relative to `plugins/super-agent-skills/`:
 
 - `skills/` — 29 skills organized by role (chain, domain, support, meta)
-- `agents/` — 7 subagent personas (code-reviewer, test-engineer, security-auditor, architecture-reviewer, test-generator, dependency-auditor, migration-assistant)
-- `references/` — 6 reference guides (security, performance, testing, accessibility, supply-chain security, MCP integrations)
+- `agents/` — 7 subagent personas
+- `references/` — 6 reference guides
 - `hooks/` — Session-start hook loads meta skill
 - `commands/` — 12 slash command shortcuts
 
-## Conventions
+### Conventions
 
-- Every skill lives in `skills/<name>/SKILL.md` with YAML frontmatter (name, description)
+- Every skill lives in `plugins/super-agent-skills/skills/<name>/SKILL.md` with YAML frontmatter
 - Skill descriptions must be specific enough for Claude to match tasks to skills
 - Skills reference each other using `super-agent-skills:<skill-name>` namespace
 - Specs are saved to `docs/super-agent-skills/specs/YYYY-MM-DD-<topic>-design.md`
-- Plans are saved to `docs/super-agent-skills/plans/YYYY-MM-DD-<feature-name>.md`
+- Plans are saved to `docs/plans/YYYY-MM-DD-<feature-name>.md`
 
 ## Skill Phases
 

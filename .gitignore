@@ -1,2 +1,8 @@
 # Internal development artifacts
 docs/super-agent-skills/
+
+# Test output
+output/
+
+# Node cache
+node_modules/

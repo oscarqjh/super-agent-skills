@@ -18,7 +18,7 @@
 
 set -euo pipefail
 
-PLUGIN_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+PLUGIN_DIR="$(cd "$(dirname "$0")/../plugins/super-agent-skills" && pwd)"
 MODEL="${TEST_MODEL:-haiku}"
 VERBOSE=false
 [[ "${1:-}" == "--verbose" ]] && VERBOSE=true
@@ -28,7 +28,8 @@ FAIL=0
 SKIP=0
 
 # Output directory for test results
-OUTPUT_DIR="$PLUGIN_DIR/output"
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+OUTPUT_DIR="$REPO_ROOT/output"
 mkdir -p "$OUTPUT_DIR"
 OUTPUT_FILE="$OUTPUT_DIR/test-capability-awareness.txt"
 

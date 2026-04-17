@@ -14,8 +14,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const SKILLS_DIR = path.join(__dirname, '..', 'skills');
-const GENERATED_DIR = path.join(__dirname, '..', 'generated');
+const PLUGIN_DIR = path.join(__dirname, '..', 'plugins', 'super-agent-skills');
+const SKILLS_DIR = path.join(PLUGIN_DIR, 'skills');
+const GENERATED_DIR = path.join(PLUGIN_DIR, 'generated');
 const VALID_PHASES = ['define', 'plan', 'build', 'verify', 'review', 'ship', 'support', 'meta'];
 
 // Fields we parse. Claude Code fields like 'hooks', 'allowed-tools', 'model' etc.

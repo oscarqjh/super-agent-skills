@@ -9,10 +9,7 @@
   "plugins": [
     {
       "name": "super-agent-skills",
-      "source": {
-        "source": "github",
-        "repo": "oscarqjh/super-agent-skills"
-      },
+      "source": "./plugins/super-agent-skills",
       "description": "Orchestration chain (brainstorm → plan → build → review → ship) with anti-rationalizations, 5-axis code review, TDD, OWASP, and 24 engineering skills."
     }
   ]
