@@ -26,6 +26,8 @@ Dispatch super-agent-skills:code-reviewer subagent to catch issues before they c
 
 **Core principle:** Review early, review often.
 
+**Related:** `super-agent-skills:receiving-code-review` — for responding to review feedback with technical rigor.
+
 ## When to Request Review
 
 **Mandatory:**

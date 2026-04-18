@@ -16,6 +16,8 @@ Code review requires technical evaluation, not emotional performance.
 
 **Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
 
+**Related:** `super-agent-skills:requesting-code-review` — for dispatching reviewers and structuring review requests.
+
 ## The Response Pattern
 
 ```
