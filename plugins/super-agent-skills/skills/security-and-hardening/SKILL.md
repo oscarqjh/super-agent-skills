@@ -224,30 +224,14 @@ function validateUpload(file: UploadedFile) {
 
 ## Triaging npm audit Results
 
-Not all audit findings require immediate action. Use this decision tree:
+| Severity | Reachable in prod? | Action |
+|----------|-------------------|--------|
+| Critical/High | Yes | Fix immediately |
+| Critical/High | No (dev-only, unused path) | Fix soon, not a blocker |
+| Moderate | Yes | Fix next release cycle |
+| Low | — | Fix during regular dependency updates |
 
-```
-npm audit reports a vulnerability
-├── Severity: critical or high
-│   ├── Is the vulnerable code reachable in your app?
-│   │   ├── YES --> Fix immediately (update, patch, or replace the dependency)
-│   │   └── NO (dev-only dep, unused code path) --> Fix soon, but not a blocker
-│   └── Is a fix available?
-│       ├── YES --> Update to the patched version
-│       └── NO --> Check for workarounds, consider replacing the dependency, or add to allowlist with a review date
-├── Severity: moderate
-│   ├── Reachable in production? --> Fix in the next release cycle
-│   └── Dev-only? --> Fix when convenient, track in backlog
-└── Severity: low
-    └── Track and fix during regular dependency updates
-```
-
-**Key questions:**
-- Is the vulnerable function actually called in your code path?
-- Is the dependency a runtime dependency or dev-only?
-- Is the vulnerability exploitable given your deployment context (e.g., a server-side vulnerability in a client-only app)?
-
-When you defer a fix, document the reason and set a review date.
+Key question: Is the vulnerable function actually called in your code path? When deferring a fix, document the reason and set a review date.
 
 ## Rate Limiting
 
@@ -285,43 +269,7 @@ app.use('/api/auth/', rateLimit({
   *.key
 ```
 
-**Always check before committing:**
-```bash
-# Check for accidentally staged secrets
-git diff --cached | grep -i "password\|secret\|api_key\|token"
-```
-
-## Security Review Checklist
-
-```markdown
-### Authentication
-- [ ] Passwords hashed with bcrypt/scrypt/argon2 (salt rounds ≥ 12)
-- [ ] Session tokens are httpOnly, secure, sameSite
-- [ ] Login has rate limiting
-- [ ] Password reset tokens expire
-
-### Authorization
-- [ ] Every endpoint checks user permissions
-- [ ] Users can only access their own resources
-- [ ] Admin actions require admin role verification
-
-### Input
-- [ ] All user input validated at the boundary
-- [ ] SQL queries are parameterized
-- [ ] HTML output is encoded/escaped
-
-### Data
-- [ ] No secrets in code or version control
-- [ ] Sensitive fields excluded from API responses
-- [ ] PII encrypted at rest (if applicable)
-
-### Infrastructure
-- [ ] Security headers configured (CSP, HSTS, etc.)
-- [ ] CORS restricted to known origins
-- [ ] Dependencies audited for vulnerabilities
-- [ ] Error messages don't expose internals
-```
-## See Also
+**Before committing:** Run `git diff --cached | grep -i "password\|secret\|api_key\|token"` to catch accidentally staged secrets.
 
 For detailed security checklists and pre-commit verification steps, see `references/security-checklist.md`.
 
@@ -341,10 +289,7 @@ Ask five questions before `npm install`:
 
 ### Typosquatting Detection
 
-Before installing, verify the package name exactly:
-- `lodash` not `1odash`
-- `@babel/core` not `@bable/core`
-- Check the npm/PyPI page directly — don't trust autocomplete
+Before installing, verify the exact package name on npm/PyPI — don't trust autocomplete (`lodash` not `1odash`, `@babel/core` not `@bable/core`).
 
 ### AI-Specific Vulnerabilities
 
@@ -361,12 +306,8 @@ For detailed checklists, see `references/supply-chain-security.md`.
 
 | Rationalization | Reality |
 |---|---|
-| "This is an internal tool, security doesn't matter" | Internal tools get compromised. Attackers target the weakest link. |
 | "We'll add security later" | Security retrofitting is 10x harder than building it in. Add it now. |
-| "No one would try to exploit this" | Automated scanners will find it. Security by obscurity is not security. |
 | "The framework handles security" | Frameworks provide tools, not guarantees. You still need to use them correctly. |
-| "It's just a prototype" | Prototypes become production. Security habits from day one. |
-| "We trust this package" | Trust is not a security strategy. Audit every dependency — popular packages get compromised too. |
 | "It's only a dev dependency" | Dev dependencies execute during build. A compromised build tool owns your CI pipeline. |
 
 ## Red Flags
