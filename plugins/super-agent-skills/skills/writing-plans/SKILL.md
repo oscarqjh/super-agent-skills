@@ -6,6 +6,7 @@ produces:
   - implementation-plan
 chainsTo:
   - subagent-driven-development
+  - compound-engineering
   - executing-plans
 chainsFrom:
   - superthink
@@ -30,8 +31,6 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ## Scope Check
 
 If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
-
-**For multi-stream features:** If the plan decomposes into 2+ independent work streams (e.g., backend + frontend + migration), consider using `super-agent-skills:compound-engineering` to orchestrate parallel execution across worktrees instead of running all tasks sequentially.
 
 ## Codebase Architecture Analysis
 
@@ -251,15 +250,49 @@ Checkpoints should occur after every 2-3 tasks. High-risk tasks should be early 
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After saving the plan, analyze the task list for independent streams, then offer the appropriate execution choice.
 
-**"Plan complete and saved to `docs/super-agent-skills/plans/<filename>.md`. Two execution options:**
+### Stream Detection
 
-**1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
+Before presenting options, check whether the plan's tasks group into 2+ independent streams:
 
-**2. Inline Execution** - Execute tasks in this session using executing-plans, batch execution with checkpoints
+1. **Group tasks by file overlap** — tasks touching the same files belong to the same stream
+2. **Verify independence** — can each group be built and tested without the other groups?
+3. **Check size** — each stream should have 3+ tasks (otherwise not worth splitting)
 
-**Which approach?"**
+If 2+ independent streams detected (different files, independently testable, 3+ tasks each), recommend Compound. Otherwise, recommend Subagent-Driven.
+
+### Present Options
+
+**"Plan complete and saved to `docs/super-agent-skills/plans/<filename>.md`."**
+
+**If independent streams detected:**
+
+> "This plan has [N] independent work streams ([stream names]). Three execution options:
+>
+> **1. Compound (recommended)** — parallel execution across isolated worktrees, one stream per worktree, then integrate
+>
+> **2. Subagent-Driven** — sequential, fresh subagent per task, review between tasks
+>
+> **3. Inline Execution** — execute in this session with checkpoints
+>
+> Which approach?"
+
+**If single stream:**
+
+> "Two execution options:
+>
+> **1. Subagent-Driven (recommended)** — fresh subagent per task, review between tasks, fast iteration
+>
+> **2. Inline Execution** — execute in this session with checkpoints
+>
+> Which approach?"
+
+### On Choice
+
+**If Compound chosen:**
+- **REQUIRED SUB-SKILL:** Use super-agent-skills:compound-engineering
+- Pass the stream grouping (which tasks belong to which stream) and integration points (shared types, API contracts)
 
 **If Subagent-Driven chosen:**
 - **REQUIRED SUB-SKILL:** Use super-agent-skills:subagent-driven-development

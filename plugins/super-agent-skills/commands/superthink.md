@@ -79,10 +79,8 @@ For each matched skill, expand the full chain using this graph:
 
 **Chain Graph (chainsTo relationships):**
 ```
-brainstorming → writing-plans → [subagent-driven-development | executing-plans] → requesting-code-review → [wrap-up | finishing-a-development-branch]
+brainstorming → writing-plans → [subagent-driven-development | compound-engineering | executing-plans] → requesting-code-review → [wrap-up | finishing-a-development-branch]
 systematic-debugging → test-driven-development → verification-before-completion
-compound-engineering → requesting-code-review → [wrap-up | finishing-a-development-branch]
-executing-plans → requesting-code-review → [wrap-up | finishing-a-development-branch]
 ```
 
 **Expansion rules:**
@@ -128,14 +126,9 @@ Never reorder without user confirmation. Never remove CHECK BACKLOG.
 
 ## Auto-Triggers (During Execution)
 
-These skills are NOT part of the execution route — they fire contextually during build/plan phases:
+These skills are NOT part of the execution route — they fire contextually during the build phase:
 
-**During planning:**
-| Context Detected | Invoke |
-|-----------------|--------|
-| Plan has 3+ independent workstreams with no cross-dependencies | compound-engineering |
 
-**During build (unchanged):**
 | Context Detected | Invoke |
 |-----------------|--------|
 | task touches API endpoints or module boundaries | api-and-interface-design |

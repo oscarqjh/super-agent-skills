@@ -97,10 +97,8 @@ When a task arrives, identify the phase and find the matching skill:
 ## Workflow Chains
 
 ```
-brainstorming → writing-plans → subagent-driven-development → requesting-code-review → [wrap-up | finishing-a-development-branch]
+brainstorming → writing-plans → [subagent-driven-development | compound-engineering | executing-plans] → requesting-code-review → [wrap-up | finishing-a-development-branch]
 systematic-debugging → test-driven-development → verification-before-completion
-compound-engineering → writing-plans (per stream) → subagent-driven-development → requesting-code-review
-executing-plans → requesting-code-review → [wrap-up | finishing-a-development-branch]
 ```
 
 ## /superthink Entry Points
