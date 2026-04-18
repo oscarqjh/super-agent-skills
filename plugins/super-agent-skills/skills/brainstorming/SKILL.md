@@ -178,10 +178,7 @@ For each approach, stress-test against three criteria:
 - **Feasibility:** What's the technical and resource cost? What's the hardest part?
 - **Differentiation:** What makes this genuinely different?
 
-**Surface hidden assumptions.** For each approach, explicitly name:
-- What you're betting is true (but haven't validated)
-- What could kill this approach
-- What you're choosing to ignore (and why that's okay for now)
+**Surface hidden assumptions.** For each approach: what are you betting is true? What could kill it?
 
 **Presenting the design:**
 
@@ -192,18 +189,9 @@ For each approach, stress-test against three criteria:
 - If the feature handles auth, user input, external APIs, payment, or PII, invoke `super-agent-skills:threat-modeling` to identify threats before finalizing the design. Append the threat model to the spec.
 - Be ready to go back and clarify if something doesn't make sense
 
-**Design for isolation and clarity:**
+**Design for isolation:** Break into units with one purpose, well-defined interfaces, and independent testability. Smaller units are easier to reason about and edit reliably.
 
-- Break the system into smaller units that each have one clear purpose, communicate through well-defined interfaces, and can be understood and tested independently
-- For each unit, you should be able to answer: what does it do, how do you use it, and what does it depend on?
-- Can someone understand what a unit does without reading its internals? Can you change the internals without breaking consumers? If not, the boundaries need work.
-- Smaller, well-bounded units are also easier for you to work with - you reason better about code you can hold in context at once, and your edits are more reliable when files are focused. When a file grows large, that's often a signal that it's doing too much.
-
-**Working in existing codebases:**
-
-- Explore the current structure before proposing changes. Follow existing patterns.
-- Where existing code has problems that affect the work (e.g., a file that's grown too large, unclear boundaries, tangled responsibilities), include targeted improvements as part of the design - the way a good developer improves code they're working in.
-- Don't propose unrelated refactoring. Stay focused on what serves the current goal.
+**Existing codebases:** Follow existing patterns. Include targeted improvements where existing code problems affect the work, but don't propose unrelated refactoring.
 
 ## After the Design
 
@@ -257,68 +245,29 @@ Generated from success criteria. These will be incorporated into the implementat
       Then: [expected outcome]
 ```
 
-**Rules for test skeletons:**
-- One test per success criterion — no more, no less
-- Use Given/When/Then format (readable by anyone, framework-agnostic)
-- Be specific about inputs and expected outputs (not "should work correctly")
-- Include at least one negative test (what should NOT happen)
-- These are skeletons, not implementations — the implementer writes the actual test code during TDD
+**Rules:** One test per success criterion. Given/When/Then format. Specific inputs/outputs (not "should work correctly"). Include at least one negative test. These are skeletons — the implementer writes actual test code during TDD.
 
-This bridges the gap between "what we want" (spec) and "how we prove it works" (tests). The implementer doesn't invent test cases from scratch — they implement pre-defined acceptance criteria.
+**Backlog Update:** Add the work item to `docs/super-agent-skills/backlogs.md` under "In Progress". Capture any unrelated ideas mentioned during brainstorming under "Ideas (Unprioritized)".
 
-**Backlog Update:**
-After writing the spec, add the work item to `docs/super-agent-skills/backlogs.md` under "In Progress":
-> "Added '[item name]' to the backlog under In Progress. Spec at `docs/super-agent-skills/specs/[path]`."
+**User Review Gate:** Ask the user to review the written spec before proceeding. Wait for approval. If changes requested, patch and re-review.
 
-If the user mentions a parallel idea during brainstorming (something unrelated to the current task), capture it in the backlog under "Ideas (Unprioritized)" so it doesn't get lost:
-> "Captured '[idea]' in the backlog Ideas section for later."
-
-**User Review Gate:**
-After the spec review loop passes, ask the user to review the written spec before proceeding:
-
-> "Spec written and committed to `<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan."
-
-Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user approves.
-
-**Implementation:**
-
-- Invoke the super-agent-skills:writing-plans skill to create a detailed implementation plan
-- Do NOT invoke any other skill. writing-plans is the next step.
-
-## Key Principles
-
-- **One question at a time** - Don't overwhelm with multiple questions
-- **Multiple choice preferred** - Easier to answer than open-ended when possible
-- **YAGNI ruthlessly** - Remove unnecessary features from all designs
-- **Explore alternatives** - Always propose 2-3 approaches before settling
-- **Incremental validation** - Present design, get approval before moving on
-- **Be flexible** - Go back and clarify when something doesn't make sense
+**Implementation:** Invoke `super-agent-skills:writing-plans` to create the implementation plan. Do NOT invoke any other skill.
 
 ## Anti-Rationalizations
 
 | Thought | Reality |
 |---------|---------|
 | "Requirements are obvious" | Unwritten requirements are unvalidated assumptions. Write them down. |
-| "This is too simple to need a design" | Simple projects are where unexamined assumptions cause the most wasted work. The design can be short, but it must exist. |
-| "I'll figure out the details during implementation" | Details discovered during implementation are rework waiting to happen. Surface them now. |
-| "The user knows what they want" | Even clear requests have implicit assumptions. The spec surfaces those assumptions. |
-| "A spec will slow us down" | A 15-minute spec prevents hours of rework. |
+| "I'll figure out the details during implementation" | Details discovered during implementation are rework. Surface them now. |
+| "The user knows what they want" | Even clear requests have implicit assumptions. The spec surfaces them. |
 
 ## Visual Companion
 
-A browser-based companion for showing mockups, diagrams, and visual options during brainstorming. Available as a tool — not a mode. Accepting the companion means it's available for questions that benefit from visual treatment; it does NOT mean every question goes through the browser.
+Browser-based companion for mockups, diagrams, and visual comparisons. Available as a tool — not a mode.
 
-**Offering the companion:** When you anticipate that upcoming questions will involve visual content (mockups, layouts, diagrams), offer it once for consent:
-> "Some of what we're working on might be easier to explain if I can show it to you in a web browser. I can put together mockups, diagrams, comparisons, and other visuals as we go. This feature is still new and can be token-intensive. Want to try it? (Requires opening a local URL)"
+**Offering:** When upcoming questions involve visual content, offer once in its **own message** (no other content):
+> "Some of what we're working on might be easier to show in a browser — mockups, diagrams, comparisons. This feature is token-intensive. Want to try it? (Requires opening a local URL)"
 
-**This offer MUST be its own message.** Do not combine it with clarifying questions, context summaries, or any other content. The message should contain ONLY the offer above and nothing else. Wait for the user's response before continuing. If they decline, proceed with text-only brainstorming.
+If they decline, proceed text-only. If they agree, read `skills/brainstorming/visual-companion.md` before proceeding.
 
-**Per-question decision:** Even after the user accepts, decide FOR EACH QUESTION whether to use the browser or the terminal. The test: **would the user understand this better by seeing it than reading it?**
-
-- **Use the browser** for content that IS visual — mockups, wireframes, layout comparisons, architecture diagrams, side-by-side visual designs
-- **Use the terminal** for content that is text — requirements questions, conceptual choices, tradeoff lists, A/B/C/D text options, scope decisions
-
-A question about a UI topic is not automatically a visual question. "What does personality mean in this context?" is a conceptual question — use the terminal. "Which wizard layout works better?" is a visual question — use the browser.
-
-If they agree to the companion, read the detailed guide before proceeding:
-`skills/brainstorming/visual-companion.md`
+**Per-question decision:** For each question, ask: **would the user understand this better by seeing it?** Use browser for visual content (mockups, wireframes, diagrams). Use terminal for text content (requirements, tradeoffs, scope decisions).
