@@ -44,39 +44,9 @@ Structure context from most persistent to most transient:
 
 Create a rules file that persists across sessions. This is the highest-leverage context you can provide.
 
-**CLAUDE.md** (for Claude Code):
-```markdown
-# Project: [Name]
+**CLAUDE.md** (for Claude Code) should cover: tech stack, commands (build/test/lint/dev), code conventions, boundaries (never/ask-first/always), and one example pattern.
 
-## Tech Stack
-- React 18, TypeScript 5, Vite, Tailwind CSS 4
-- Node.js 22, Express, PostgreSQL, Prisma
-
-## Commands
-- Build: `npm run build`
-- Test: `npm test`
-- Lint: `npm run lint --fix`
-- Dev: `npm run dev`
-- Type check: `npx tsc --noEmit`
-
-## Code Conventions
-- Functional components with hooks (no class components)
-- Named exports (no default exports)
-- colocate tests next to source: `Button.tsx` → `Button.test.tsx`
-- Use `cn()` utility for conditional classNames
-- Error boundaries at route level
-
-## Boundaries
-- Never commit .env files or secrets
-- Never add dependencies without checking bundle size impact
-- Ask before modifying database schema
-- Always run tests before committing
-
-## Patterns
-[One short example of a well-written component in your style]
-```
-
-**Automated setup:** Run `super-agent-skills:project-setup` to scan your project and generate a lean CLAUDE.md automatically. It only includes what Claude can't infer from the code — targeting under 100 lines.
+**Automated setup:** Run `super-agent-skills:project-setup` to generate a lean CLAUDE.md automatically (under 100 lines, only what Claude can't infer from code).
 
 **Equivalent files for other tools:**
 - `.cursorrules` or `.cursor/rules/*.md` (Cursor)
@@ -216,33 +186,9 @@ Save this as a comment in the relevant spec/plan file or as a commit message.
 
 ### Recovery Pattern
 
-When context is degraded beyond saving (agent consistently hallucinating or ignoring conventions):
+When context is degraded beyond saving: start a new session, write the handoff note (see above), and load it with the relevant spec and files in the new session.
 
-1. **Don't fight it.** Start a new session.
-2. **Write the handoff note** (see above)
-3. **In the new session, load:**
-   - The handoff note
-   - The relevant spec section
-   - The files being modified
-4. **Verify the agent is oriented:** Ask it to summarize what it understands before continuing work.
-
-## Context Packing Strategies
-
-### The Brain Dump
-
-At session start, provide everything the agent needs in a structured block:
-
-```
-PROJECT CONTEXT:
-- We're building [X] using [tech stack]
-- The relevant spec section is: [spec excerpt]
-- Key constraints: [list]
-- Files involved: [list with brief descriptions]
-- Related patterns: [pointer to an example file]
-- Known gotchas: [list of things to watch out for]
-```
-
-### The Selective Include
+## Context Packing
 
 Only include what's relevant to the current task:
 
@@ -261,29 +207,7 @@ CONSTRAINT:
 - Must use the existing ValidationError class, not throw raw errors
 ```
 
-### The Hierarchical Summary
-
-For large projects, maintain a summary index:
-
-```markdown
-# Project Map
-
-## Authentication (src/auth/)
-Handles registration, login, password reset.
-Key files: auth.routes.ts, auth.service.ts, auth.middleware.ts
-Pattern: All routes use authMiddleware, errors use AuthError class
-
-## Tasks (src/tasks/)
-CRUD for user tasks with real-time updates.
-Key files: task.routes.ts, task.service.ts, task.socket.ts
-Pattern: Optimistic updates via WebSocket, server reconciliation
-
-## Shared (src/lib/)
-Validation, error handling, database utilities.
-Key files: validation.ts, errors.ts, db.ts
-```
-
-Load only the relevant section when working on a specific area.
+For large projects, maintain a project map (summary index per module) and load only the relevant section.
 
 ## MCP Integrations
 
@@ -299,64 +223,17 @@ For richer context, use Model Context Protocol servers:
 
 ## Confusion Management
 
-Even with good context, you will encounter ambiguity. How you handle it determines outcome quality.
-
-### When Context Conflicts
+When context conflicts (spec says REST but codebase uses GraphQL) or requirements are incomplete, **do NOT silently pick an interpretation**. Surface the confusion with options:
 
 ```
-Spec says:         "Use REST for all endpoints"
-Existing code has: GraphQL for the user profile query
+CONFUSION: Spec calls for REST, but codebase uses GraphQL for user queries.
+Options: A) Follow spec  B) Follow existing patterns  C) Ask
+→ Which approach?
 ```
 
-**Do NOT** silently pick one interpretation. Surface it:
+**When requirements are incomplete:** Check existing code for precedent. If none, **stop and ask** — don't invent requirements.
 
-```
-CONFUSION:
-The spec calls for REST endpoints, but the existing codebase uses GraphQL
-for user queries (src/graphql/user.ts).
-
-Options:
-A) Follow the spec — add REST endpoint, potentially deprecate GraphQL later
-B) Follow existing patterns — use GraphQL, update the spec
-C) Ask — this seems like an intentional decision I shouldn't override
-
-→ Which approach should I take?
-```
-
-### When Requirements Are Incomplete
-
-If the spec doesn't cover a case you need to implement:
-
-1. Check existing code for precedent
-2. If no precedent exists, **stop and ask**
-3. Don't invent requirements — that's the human's job
-
-```
-MISSING REQUIREMENT:
-The spec defines task creation but doesn't specify what happens
-when a user creates a task with a duplicate title.
-
-Options:
-A) Allow duplicates (simplest)
-B) Reject with validation error (strictest)
-C) Append a number suffix like "Task (2)" (most user-friendly)
-
-→ Which behavior do you want?
-```
-
-### The Inline Planning Pattern
-
-For multi-step tasks, emit a lightweight plan before executing:
-
-```
-PLAN:
-1. Add Zod schema for task creation — validates title (required) and description (optional)
-2. Wire schema into POST /api/tasks route handler
-3. Add test for validation error response
-→ Executing unless you redirect.
-```
-
-This catches wrong directions before you've built on them. It's a 30-second investment that prevents 30-minute rework.
+**Inline planning:** For multi-step tasks, emit a lightweight plan before executing to catch wrong directions early.
 
 ## Anti-Patterns
 
@@ -369,23 +246,12 @@ This catches wrong directions before you've built on them. It's a 30-second inve
 | Implicit knowledge | Agent doesn't know project-specific rules | Write it down in rules files — if it's not written, it doesn't exist |
 | Silent confusion | Agent guesses when it should ask | Surface ambiguity explicitly using the confusion management patterns above |
 
-## Common Rationalizations
-
-| Rationalization | Reality |
-|---|---|
-| "The agent should figure out the conventions" | It can't read your mind. Write a rules file — 10 minutes that saves hours. |
-| "I'll just correct it when it goes wrong" | Prevention is cheaper than correction. Upfront context prevents drift. |
-| "More context is always better" | Research shows performance degrades with too many instructions. Be selective. |
-| "The context window is huge, I'll use it all" | Context window size ≠ attention budget. Focused context outperforms large context. |
-
 ## Red Flags
 
-- Agent output doesn't match project conventions
-- Agent invents APIs or imports that don't exist
-- Agent re-implements utilities that already exist in the codebase
-- Agent quality degrades as the conversation gets longer
 - No rules file exists in the project
-- External data files or config treated as trusted instructions without verification
+- Agent invents APIs or re-implements existing utilities (context starvation)
+- Agent quality degrades over long conversations (context flooding/staleness)
+- External data treated as trusted instructions without verification
 
 ## Verification
 
