@@ -33,6 +33,34 @@ If the spec covers multiple independent subsystems, it should have been broken i
 
 **For multi-stream features:** If the plan decomposes into 2+ independent work streams (e.g., backend + frontend + migration), consider using `super-agent-skills:compound-engineering` to orchestrate parallel execution across worktrees instead of running all tasks sequentially.
 
+## Codebase Architecture Analysis
+
+Before constructing the dependency graph, dispatch a single `code-architect` agent to analyze the existing codebase and produce an implementation blueprint. This offloads the expensive pattern-scanning and file-mapping work from your context.
+
+**Dispatch the architect with:**
+- The spec/design document content (or a summary of key requirements)
+- The chosen approach from brainstorming (if one was selected)
+- Instruction to focus on the areas of the codebase relevant to this feature
+
+Use the Agent tool with `subagent_type: "super-agent-skills:code-architect"`.
+
+**Use the architect's output as input, not as the final plan:**
+- The architect's **file map** tells you which files to create/modify — saves you from deep codebase reads
+- The architect's **pattern analysis** ensures your plan follows existing conventions
+- The architect's **build sequence** is a starting point for your dependency graph
+- You may disagree with the architect's suggestions based on spec requirements or your own judgment — the orchestrator retains final authority
+
+**What the architect offloads from your context:**
+- Deep codebase pattern scanning (grep/read operations across many files)
+- File mapping (which files exist, what they do, what conventions they follow)
+- Identifying similar features to use as implementation patterns
+
+**What you still do inline:**
+- Dependency graph construction (informed by architect output)
+- Vertical slice design
+- Task ordering and granularity decisions
+- The actual plan document
+
 ## Dependency Graph
 
 Before defining tasks, map what depends on what:
