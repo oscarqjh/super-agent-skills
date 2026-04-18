@@ -60,11 +60,13 @@ When you're building something new, the plugin runs the complete lifecycle:
 
 ```
 ① Brainstorming          Ask questions, explore approaches, write design spec
+        │                 + dispatches code-explorer agent for codebase context
         │                 + generates acceptance test skeletons
         ▼                 + invokes threat-modeling if security-sensitive
 ② Writing Plans          Break spec into bite-sized tasks with vertical slicing
+        │                 + dispatches code-architect agent for design blueprint
         │                 + maps dependency graph, adds checkpoints
-        ▼                 + suggests compound-engineering if multi-stream
+        ▼                 + 3-option execution handoff (compound / subagent / inline)
 ③ Building               Dispatch fresh subagent per task (TDD, incremental)
         │                 + domain skills auto-trigger: API, frontend, security...
         │                 + parallel dispatch for independent tasks (max 3)
@@ -79,7 +81,9 @@ Every step has anti-rationalization tables that catch shortcuts, and hooks that 
 
 ## What's Inside
 
-29 skills, 7 agent personas, 6 reference guides, 12 slash commands, 4 hook types.
+29 skills, 9 agent personas, 6 reference guides, 12 slash commands, 4 hook types.
+
+Skills carry structured capability frontmatter (phase, produces, requires, companions, chainsTo) that auto-generates a routing index at session start — the agent knows valid next steps without hand-maintained routing tables.
 
 See [Architecture](docs/architecture.md) for the full inventory and how everything connects.
 

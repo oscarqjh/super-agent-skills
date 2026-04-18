@@ -5,15 +5,20 @@ All notable changes to the super-agent-skills plugin. For detailed development h
 ## [1.1.0] — 2026-04-18
 
 ### Added
+- **Execution route system** — `/superthink` rewritten as a 3-stage routing pipeline (decompose → match → build route). 14 intent routes (up from 7): adds OPTIMIZE, SECURE, DOCUMENT, SETUP, AUDIT, CONTEXT, THREAT-MODEL. HARD-GATE chain enforcement via TaskCreate persistence. CHECK BACKLOG terminal step. Multi-intent decomposition ("fix then test" → merged route).
+- **Capability awareness system** — Structured YAML frontmatter on all 29 skills (phase, produces, requires, companions, chainsTo, autoTriggers). Auto-generated capability index from frontmatter. Session-start hook injects capability summary. Cytoscape routing graph visualization.
+- **Cost-optimized delegation** — 3 prompt templates (spec-writer, spec-reviewer, plan-writer) delegating spec/plan writing to sonnet subagents. Explicit model selection table in subagent-driven-development. Inline vs delegated boundary in writing-plans.
 - **code-explorer agent** — read-only codebase analysis (traces execution paths, maps architecture, documents dependencies). Dispatched conditionally during brainstorming.
 - **code-architect agent** — architecture blueprint generation (analyzes patterns, designs implementation blueprints). Dispatched during writing-plans.
 - **3-option execution handoff** in writing-plans — detects independent streams and offers compound (parallel worktrees), subagent-driven (sequential), or inline execution.
-- 34-test structural test suite for agent integration.
+- Structural + LLM behavioral test suites (34 execution-route tests, 34 agent-integration tests, 22 capability/awareness tests).
 
 ### Changed
+- **Repo restructured as multi-plugin marketplace** (`plugins/<name>/`).
 - Compound-engineering integrated into writing-plans handoff. Trimmed from 5 phases to 3 (execute/integrate/review) — decomposition and planning now handled upstream.
 - 5 skills trimmed for token efficiency (~2,790 words removed, ~22% average reduction): writing-skills, test-driven-development, brainstorming, context-engineering, security-and-hardening.
 - Workflow chain graph simplified — compound-engineering now a choice from writing-plans rather than a separate entry point.
+- Cross-references added between related skills (threat-modeling ↔ security-and-hardening, requesting-code-review ↔ receiving-code-review).
 
 ## [1.0.3] — 2026-04-14
 
