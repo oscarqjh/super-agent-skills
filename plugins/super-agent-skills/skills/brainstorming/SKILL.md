@@ -61,7 +61,7 @@ When you encounter inconsistencies, conflicting requirements, or unclear specifi
 
 You MUST create a task for each of these items and complete them in order:
 
-1. **Explore project context** — check files, docs, recent commits
+1. **Explore project context** — check files, docs, recent commits. Assess whether dispatching `code-explorer` agents would help (see Structured Codebase Exploration below).
 2. **Offer visual companion** (if topic will involve visual questions) — this is its own message, not combined with a clarifying question. See the Visual Companion section below.
 3. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 4. **Propose 2-3 approaches** — with trade-offs and your recommendation
@@ -77,6 +77,9 @@ You MUST create a task for each of these items and complete them in order:
 ```dot
 digraph brainstorming {
     "Explore project context" [shape=box];
+    "Codebase exploration\nneeded?" [shape=diamond];
+    "Dispatch code-explorer\nagents (1-3, parallel)" [shape=box];
+    "Consolidate findings" [shape=box];
     "Visual questions ahead?" [shape=diamond];
     "Offer Visual Companion\n(own message, no other content)" [shape=box];
     "Ask clarifying questions" [shape=box];
@@ -89,7 +92,11 @@ digraph brainstorming {
     "User reviews spec?" [shape=diamond];
     "Invoke writing-plans skill" [shape=doublecircle];
 
-    "Explore project context" -> "Visual questions ahead?";
+    "Explore project context" -> "Codebase exploration\nneeded?";
+    "Codebase exploration\nneeded?" -> "Dispatch code-explorer\nagents (1-3, parallel)" [label="yes"];
+    "Codebase exploration\nneeded?" -> "Visual questions ahead?" [label="no"];
+    "Dispatch code-explorer\nagents (1-3, parallel)" -> "Consolidate findings";
+    "Consolidate findings" -> "Visual questions ahead?";
     "Visual questions ahead?" -> "Offer Visual Companion\n(own message, no other content)" [label="yes"];
     "Visual questions ahead?" -> "Ask clarifying questions" [label="no"];
     "Offer Visual Companion\n(own message, no other content)" -> "Ask clarifying questions";
@@ -113,6 +120,32 @@ digraph brainstorming {
 **Understanding the idea:**
 
 - Check out the current project state first (files, docs, recent commits)
+
+**Structured Codebase Exploration:**
+
+After your initial context check, assess whether dispatching `code-explorer` agents would meaningfully help the current request. This is a judgment call, not a mandatory step.
+
+**When to dispatch explorers:**
+- Working in an existing codebase with unfamiliar patterns
+- Feature that needs to integrate with existing code paths
+- User's request touches multiple subsystems you haven't traced
+
+**When to skip:**
+- Greenfield project or standalone addition
+- Simple config, documentation, or prompt-only change
+- You already understand the relevant codebase areas
+
+**How to dispatch:**
+- Decide what aspects need exploration based on the user's request
+- Craft a focused prompt for each explorer (e.g., "trace how the skill-loading pipeline works from session-start hook to skill resolution" or "map the agent dispatch patterns used in subagent-driven-development")
+- Dispatch 1-3 `code-explorer` agents in parallel using the Agent tool with `subagent_type: "super-agent-skills:code-explorer"`
+- Max 3 explorers — more creates consolidation overhead exceeding the benefit
+
+**After explorers return:**
+- Synthesize their findings into a codebase understanding summary
+- Use this to inform your clarifying questions and approach proposals
+- Do NOT blindly relay explorer output — extract what's relevant to the design task
+
 - Before asking detailed questions, assess scope: if the request describes multiple independent subsystems (e.g., "build a platform with chat, file storage, billing, and analytics"), flag this immediately. Don't spend questions refining details of a project that needs to be decomposed first.
 - If the project is too large for a single spec, help the user decompose into sub-projects: what are the independent pieces, how do they relate, what order should they be built? Then brainstorm the first sub-project through the normal design flow. Each sub-project gets its own spec → plan → implementation cycle.
 - For appropriately-scoped projects, ask questions one at a time to refine the idea
