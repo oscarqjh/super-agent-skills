@@ -26,6 +26,7 @@ Run `/plugin` or check settings to identify installed plugins. Flag any that ove
 |--------|----------|---------------|
 | `superpowers` | Overlaps entirely — orchestration chain, TDD, debugging, code review | Disable. super-agent-skills replaces it completely. |
 | `agent-skills` | Overlaps entirely — engineering standards, domain skills | Disable. super-agent-skills replaces it completely. |
+| `feature-dev` | Duplicates code-explorer, code-architect, code-reviewer agents. Its `/feature-dev` command bypasses `/superthink`. | Disable OR pick one workflow. super-agent-skills integrates equivalent agents natively into brainstorming and writing-plans. |
 
 **How to check:**
 ```bash
@@ -62,6 +63,7 @@ Check for plugins and MCP servers that enhance super-agent-skills:
 | `frontend-design` (plugin) | frontend-ui-engineering | Design system guidance |
 | `code-review` (plugin) | requesting-code-review | Additional review tooling |
 | TypeScript LSP (plugin) | All TypeScript work | Code intelligence |
+| `caveman` (plugin) | All skills | Token compression — drops filler/articles, preserves technical substance. Reduces output tokens ~75%. |
 
 **How to check MCP:**
 ```bash
@@ -137,6 +139,7 @@ Combine all findings into a single report:
 
 - superpowers AND super-agent-skills both enabled (duplicate orchestration)
 - agent-skills AND super-agent-skills both enabled (duplicate domain skills)
+- feature-dev AND super-agent-skills both enabled (duplicate code-explorer/code-architect/code-reviewer agents; competing entry commands)
 - No MCP servers configured in a project with database/API/frontend work
 - Multiple review plugins potentially giving conflicting feedback
 
