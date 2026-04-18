@@ -455,7 +455,7 @@ run_test \
   "Inline awareness: dependency graph and task ordering stay inline" \
   "When using the writing-plans skill, what work stays inline on the main model vs what gets delegated? Answer in 2 sentences max." \
   90 \
-  "inline" "dependency" "task" \
+  "inline" "dependency" "task" "main model" "orchestrat" "coordinat" \
   ---
 
 # ---------------------------------------------------------------------------
