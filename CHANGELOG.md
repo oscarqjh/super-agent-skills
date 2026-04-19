@@ -2,6 +2,11 @@
 
 All notable changes to the super-agent-skills plugin. For detailed development history, see [docs/super-agent-skills/changelog.md](docs/super-agent-skills/changelog.md).
 
+## [1.1.1] — 2026-04-19
+
+### Fixed
+- **SubagentStop hook loop** — code-reviewer completion-prompt hook rewritten as a command-type hook with `stop_hook_active` guard and A/B/C detection. The previous `type: "prompt"` variant could re-fire on every stop attempt, trapping the agent in an infinite "Before stopping, you must prompt the user…" loop. New `hooks/code-reviewer-stop.js` emits `decision: "block"` only when options are genuinely missing, exits silently otherwise.
+
 ## [1.1.0] — 2026-04-18
 
 ### Added

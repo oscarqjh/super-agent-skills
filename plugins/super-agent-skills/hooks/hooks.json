@@ -15,8 +15,9 @@
         "matcher": "super-agent-skills:code-reviewer",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "The code reviewer has finished. You must now prompt the user with completion options: (A) Wrap up — update backlog, changelog, commit, move to next item. (B) Ship it — pre-merge checklist, merge/PR, branch cleanup. (C) Keep going — continue working. Present these options and wait for the user's response before taking any action."
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/code-reviewer-stop.js",
+            "timeout": 5
           }
         ]
       }
