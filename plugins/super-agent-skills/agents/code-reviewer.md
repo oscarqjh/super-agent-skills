@@ -89,3 +89,16 @@ Categorize every finding:
 4. Don't approve code with Critical issues
 5. Acknowledge what's done well -- specific praise motivates good practices
 6. If you're uncertain about something, say so and suggest investigation rather than guessing
+
+## Completion Protocol
+
+After the review body, end your response with this exact block — verbatim, on its own lines, nothing after it:
+
+```
+[AWAITING_USER_CHOICE]
+(A) Wrap up — update backlog, changelog, commit, move to next item
+(B) Ship it — pre-merge checklist, merge/PR, branch cleanup
+(C) Keep going — continue working
+```
+
+The `[AWAITING_USER_CHOICE]` sentinel is required — the SubagentStop hook (`hooks/code-reviewer-stop.js`) uses it to confirm the completion menu was emitted and will otherwise block you from stopping. Emit the sentinel even if your verdict is APPROVE with no findings.

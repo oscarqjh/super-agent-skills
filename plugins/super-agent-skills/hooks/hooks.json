@@ -10,7 +10,7 @@
         ]
       }
     ],
-"SubagentStop": [
+    "SubagentStop": [
       {
         "matcher": "super-agent-skills:code-reviewer",
         "hooks": [

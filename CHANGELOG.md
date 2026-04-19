@@ -2,6 +2,19 @@
 
 All notable changes to the super-agent-skills plugin. For detailed development history, see [docs/super-agent-skills/changelog.md](docs/super-agent-skills/changelog.md).
 
+## [1.1.2] — 2026-04-19
+
+### Changed
+- **Sentinel-based SubagentStop detection** — the code-reviewer completion hook now matches a literal `[AWAITING_USER_CHOICE]` sentinel instead of a permissive `A) … B) … C)` regex. The previous regex produced false positives on incidental prose (e.g. a review that listed `A) foo.ts, B) bar.ts, C) baz.ts` among affected files), silently bypassing the hook.
+- The `code-reviewer` agent now ends every response with the sentinel followed by the A/B/C menu, per a new Completion Protocol in `agents/code-reviewer.md`. The hook's block reason teaches the exact sentinel + menu, so a forgetful agent self-heals on the next pass.
+
+### Added
+- `hooks/code-reviewer-stop.test.sh` — fixture-based smoke tests covering malformed JSON, empty stdin, `stop_hook_active`, sentinel present, sentinel absent, incidental A/B/C prose, and missing `last_assistant_message`.
+- stdin `error` listener in `code-reviewer-stop.js` — an EPIPE or read error now exits 0 instead of surfacing a non-zero exit (which the harness would treat as a block, reintroducing loop risk).
+
+### Fixed
+- `hooks.json` `SubagentStop` key indentation aligned with siblings.
+
 ## [1.1.1] — 2026-04-19
 
 ### Fixed

@@ -1,16 +1,29 @@
 #!/usr/bin/env node
-// SubagentStop hook — enforces the A/B/C completion prompt after a code review
-// without causing an infinite stop loop. See code-reviewer-stop.sh for the
-// full contract.
+// SubagentStop hook for super-agent-skills:code-reviewer.
+//
+// After a review finishes, the subagent must emit the sentinel
+// [AWAITING_USER_CHOICE] followed by the A/B/C completion menu. This hook
+// enforces that contract without risking an infinite stop loop.
+//
+// Loop-safety contract, in order:
+//   1. Malformed JSON on stdin   -> exit 0 silently.
+//      (We cannot read stop_hook_active, so blocking could loop.)
+//   2. stop_hook_active === true -> exit 0 silently.
+//      (Second pass after a previous block; never block twice.)
+//   3. last_assistant_message contains the sentinel -> exit 0 silently.
+//   4. Otherwise                 -> emit decision:block once, teaching the
+//      subagent the exact sentinel + menu to append.
+//
+// The sentinel is a literal substring match — no regex false positives.
+
+const SENTINEL = '[AWAITING_USER_CHOICE]';
 
 let input = '';
+process.stdin.on('error', () => process.exit(0));
 process.stdin.on('data', (chunk) => { input += chunk; });
 process.stdin.on('end', () => {
   let data;
   try { data = JSON.parse(input); } catch (_) {
-    // Malformed hook input: exit silently so we never block on garbage.
-    // Blocking here would risk an infinite loop since stop_hook_active
-    // cannot be read from an unparsable payload.
     process.exit(0);
   }
 
@@ -19,18 +32,19 @@ process.stdin.on('end', () => {
   }
 
   const last = String(data.last_assistant_message || '');
-  // Accept either "(A)" or "A)" prefixes. Require all three markers in order.
-  const menuPattern = /\(?A\)[\s\S]*?\(?B\)[\s\S]*?\(?C\)/;
-  if (menuPattern.test(last)) {
+  if (last.includes(SENTINEL)) {
     process.exit(0);
   }
 
   const reason =
-    'Code review finished. Before stopping you must prompt the user with ' +
-    'completion options: (A) Wrap up — update backlog, changelog, commit, ' +
-    'move to next item. (B) Ship it — pre-merge checklist, merge/PR, branch ' +
-    'cleanup. (C) Keep going — continue working. Present these options and ' +
-    "wait for the user's response before taking any action.";
+    'Code review finished but the completion menu is missing. ' +
+    'Append this exact block to your response, verbatim, on its own lines, ' +
+    'with nothing after it:\n\n' +
+    SENTINEL + '\n' +
+    '(A) Wrap up — update backlog, changelog, commit, move to next item\n' +
+    '(B) Ship it — pre-merge checklist, merge/PR, branch cleanup\n' +
+    '(C) Keep going — continue working\n\n' +
+    'The sentinel on the first line is required.';
 
   process.stdout.write(JSON.stringify({ decision: 'block', reason }));
   process.exit(0);
