@@ -10,18 +10,6 @@
         ]
       }
     ],
-    "SubagentStop": [
-      {
-        "matcher": "super-agent-skills:code-reviewer",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/code-reviewer-stop.js",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
     "PostToolUseFailure": [
       {
         "matcher": "Bash",

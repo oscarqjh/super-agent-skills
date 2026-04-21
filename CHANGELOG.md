@@ -2,6 +2,17 @@
 
 All notable changes to the super-agent-skills plugin. For detailed development history, see [docs/super-agent-skills/changelog.md](docs/super-agent-skills/changelog.md).
 
+## [1.1.3] — 2026-04-21
+
+### Removed
+- **Stop hook in `requesting-code-review/SKILL.md` frontmatter** — this hook emitted an unconditional `decision: block` on every parent-agent turn with no `stop_hook_active` guard and no exit condition, producing the exact "Before stopping, you must prompt the user with completion options…" infinite loop users reported. Previous v1.1.1/v1.1.2 fixes addressed only the SubagentStop hook in `hooks/hooks.json`; this skill-frontmatter hook was a separate, parallel enforcement layer that was missed.
+- **SubagentStop hook in `hooks/hooks.json`** — the sentinel-gated subagent-layer enforcement is also removed. Blocking agent-stop to enforce a UX nudge is the wrong primitive: every flag/sentinel/timestamp-based gating scheme has edge cases (user takes multiple turns to decide, summarization drops the sentinel, interrupt orphans state) that reintroduce loop risk for marginal safety.
+- `hooks/code-reviewer-stop.js` + `hooks/code-reviewer-stop.test.sh` — obsolete once the SubagentStop hook is gone.
+- **Completion Protocol section** in `agents/code-reviewer.md` — the `[AWAITING_USER_CHOICE]` sentinel contract is no longer needed without the hook that consumed it.
+
+### Rationale
+The A/B/C completion menu is a conversation-flow concern, not a work-completion gate. `requesting-code-review/SKILL.md` still contains the menu prose in its `## Handoff` section and a `<HARD-GATE>` block instructing the agent not to commit/push without prompting the user first. We now rely on that prose + the existing SessionStart context injection to shape behavior, rather than blocking hooks at either layer. If drift becomes a real problem in practice, the correct next step is a `UserPromptSubmit` hook that routes the user's A/B/C reply — observable enforcement at the input layer, never the output layer.
+
 ## [1.1.2] — 2026-04-19
 
 ### Changed

@@ -1,12 +1,6 @@
 ---
 name: requesting-code-review
 description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements
-hooks:
-  Stop:
-    - hooks:
-        - type: command
-          command: "echo '{\"decision\": \"block\", \"reason\": \"Before stopping, you must prompt the user with completion options: (A) Wrap up, (B) Ship it, (C) Keep going. Do not commit or push directly.\"}'"
-          once: true
 phase: review
 produces:
   - review-report
