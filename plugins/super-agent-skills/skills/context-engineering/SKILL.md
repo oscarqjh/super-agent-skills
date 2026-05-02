@@ -46,7 +46,7 @@ Create a rules file that persists across sessions. This is the highest-leverage 
 
 **CLAUDE.md** (for Claude Code) should cover: tech stack, commands (build/test/lint/dev), code conventions, boundaries (never/ask-first/always), and one example pattern.
 
-**Automated setup:** Run `super-agent-skills:project-setup` to generate a lean CLAUDE.md automatically (under 100 lines, only what Claude can't infer from code).
+**Automated setup:** Run `super-agent-skills:super-init` to generate a lean CLAUDE.md automatically (under 100 lines, only what Claude can't infer from code).
 
 **Equivalent files for other tools:**
 - `.cursorrules` or `.cursor/rules/*.md` (Cursor)
