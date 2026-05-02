@@ -49,6 +49,7 @@ If Claude would figure it out from the code anyway — don't include it. CLAUDE.
 ```bash
 cat package.json 2>/dev/null        # Node.js
 cat requirements.txt 2>/dev/null     # Python
+cat pyproject.toml 2>/dev/null       # Python (PEP 621 / poetry)
 cat Cargo.toml 2>/dev/null           # Rust
 cat go.mod 2>/dev/null               # Go
 cat pom.xml 2>/dev/null              # Java
@@ -304,4 +305,4 @@ After generating or auditing CLAUDE.md:
 - [ ] Conventions section only has things that differ from defaults
 - [ ] Gotchas section exists (even if empty) for organic growth
 - [ ] User has reviewed and approved the content
-- [ ] rubric grade >= B for the generated/audited file
+- [ ] Rubric grade >= B for the generated/audited file

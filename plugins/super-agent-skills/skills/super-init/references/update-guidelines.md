@@ -8,7 +8,7 @@ Used by `super-init`'s AUDIT branch to format proposed patches against an existi
 Patches are grouped by the H2 (`##`) or H3 (`###`) heading they touch. One approval prompt is shown per touched section. Sections the diff did not touch are never displayed and are left untouched on apply.
 
 ### Within a section: unified-diff
-Inside each section's hunk, line-level changes use unified-diff style: lines prefixed `-` are removed, lines prefixed `+` are added, lines with no prefix are context. Replacements appear as a `-` line immediately followed by a `+` line.
+Inside each section's hunk, line-level changes use unified-diff style: lines prefixed `-` are removed, lines prefixed `+` are added, lines with no prefix are context. Replacements appear as a `-` line immediately followed by a `+` line. The first character of each line in the diff codeblock is the diff marker; everything after the first space is the file's original content (which may itself begin with markdown punctuation like `-` for a list item).
 
 ### Worked Example
 
@@ -27,15 +27,15 @@ Scan finds: project switched from npm to pnpm; `pnpm-lock.yaml` is at root; `pac
 Diff hunks emitted:
 ```diff
 ## Commands
--- Build: `npm run build`
--- Test: `npm test`
-++ Build: `pnpm build`
-++ Test: `pnpm test:unit`
+- - Build: `npm run build`
+- - Test: `npm test`
++ - Build: `pnpm build`
++ - Test: `pnpm test:unit`
 ```
 ```diff
 ## Gotchas
--- Always run `npm install` first
-++ Use `pnpm`, not `npm` (see `pnpm-lock.yaml` at root)
+- - Always run `npm install` first
++ - Use `pnpm`, not `npm` (see `pnpm-lock.yaml` at root)
 ```
 
 User approval prompt:
