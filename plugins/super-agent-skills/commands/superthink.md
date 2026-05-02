@@ -61,7 +61,7 @@ For each intent, find the best skill from this table. For clear keyword matches,
 | OPTIMIZE | performance-optimization | Slow, latency, memory, speed up, performance |
 | SECURE | security-and-hardening | Harden, auth security, vulnerability, OWASP |
 | DOCUMENT | documentation-and-adrs | ADR, document decision, write docs |
-| SETUP | project-setup | New repo, init, configure, "set up" |
+| SETUP | super-init | New repo, init, configure, "set up" |
 | AUDIT | plugin-audit | Check plugins, conflicts, environment audit |
 | CONTEXT | context-engineering | Context too large, token budget, focus context |
 | THREAT-MODEL | threat-modeling | Threat model, attack surface, STRIDE |
