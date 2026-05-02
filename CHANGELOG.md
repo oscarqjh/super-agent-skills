@@ -2,6 +2,23 @@
 
 All notable changes to the super-agent-skills plugin. For detailed development history, see [docs/super-agent-skills/changelog.md](docs/super-agent-skills/changelog.md).
 
+## [Unreleased]
+
+### Added
+- `/super-init` slash command and `super-init` skill — replaces `/project-setup` with a stronger primitive that handles both first-time generation (GENERATE branch) and refresh of an existing CLAUDE.md (AUDIT branch).
+- 4-template library at `plugins/super-agent-skills/skills/super-init/references/templates.md` with auto-detection (`minimal-root`, `comprehensive-root`, `package`, `monorepo`) and user override at draft review.
+- 6-criterion quality rubric at `plugins/super-agent-skills/skills/super-init/references/quality-criteria.md` (correctness 20, conciseness 20, gotchas 15, conventions 15, commands 15, structure 15) with grade thresholds A≥85 / B≥70 / C≥55 / F<55. Cited from both GENERATE self-score and AUDIT score steps.
+- AUDIT branch: section-keyed unified-diff format (per `references/update-guidelines.md`) with per-section or bulk approval; sections the diff did not touch are never overwritten.
+- `.claude/rules/` scaffold for the monorepo template — opt-in only, never offered for any other layout.
+- Onboarding panel printed once on GENERATE-first-run only, covering the `#` shortcut, organic correction persistence, hooks-vs-CLAUDE.md compliance reality (~70% rule following), and the re-run-`/super-init`-for-audit tip.
+
+### Changed
+- Cross-references in active code now point at `super-init`: `commands/superthink.md` (SETUP route), `hooks/session-start.sh` (no-CLAUDE.md prompt), `skills/context-engineering/SKILL.md` (automated-setup pointer), `skills/plugin-audit/SKILL.md` (When NOT to Use), `skills/using-skills/SKILL.md` (routing table), `generated/routing-table.md`, and `generated/routing-graph.html`.
+
+### Removed
+- `/project-setup` slash command (`plugins/super-agent-skills/commands/project-setup.md`).
+- `project-setup` skill (`plugins/super-agent-skills/skills/project-setup/`).
+
 ## [1.1.3] — 2026-04-21
 
 ### Removed
