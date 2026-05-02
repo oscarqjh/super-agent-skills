@@ -91,7 +91,7 @@ When a task arrives, identify the phase and find the matching skill:
 | Skill | Produces | Companions |
 |-------|----------|------------|
 | plugin-audit | audit-report | — |
-| project-setup | claude-md | — |
+| super-init | claude-md | — |
 | using-skills | routing-guidance | — |
 
 ## Workflow Chains
