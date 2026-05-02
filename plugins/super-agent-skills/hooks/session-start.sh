@@ -25,7 +25,7 @@ if [ ! -f "CLAUDE.md" ] && [ ! -f ".claude/CLAUDE.md" ]; then
 
 <IMPORTANT>
 No CLAUDE.md found in this project. You MUST ask the user:
-"I notice this project doesn't have a CLAUDE.md yet. Would you like me to scan your project and set one up? It helps me understand your tech stack, conventions, and commands so I can work more effectively. (Run /super-agent-skills:project-setup)"
+"I notice this project doesn't have a CLAUDE.md yet. Would you like me to scan your project and set one up? It helps me understand your tech stack, conventions, and commands so I can work more effectively. (Run /super-agent-skills:super-init)"
 Wait for the user's response before proceeding with any other work.
 </IMPORTANT>
 SETUP_MSG
