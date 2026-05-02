@@ -58,7 +58,7 @@
 | Skill | Produces | Companions |
 |-------|----------|------------|
 | plugin-audit | audit-report | — |
-| project-setup | claude-md | — |
+| super-init | claude-md | — |
 | using-skills | routing-guidance | — |
 
 ## Workflow Chains
