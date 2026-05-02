@@ -124,7 +124,7 @@ Combine all findings into a single report:
 
 ## When NOT to Use
 
-- You just installed the plugin and haven't started working yet — run project-setup first
+- You just installed the plugin and haven't started working yet — run super-init first
 - You're in the middle of implementation — audit between tasks, not during
 
 ## Anti-Rationalizations
