@@ -2,7 +2,7 @@
 
 All notable changes to the super-agent-skills plugin. For detailed development history, see [docs/super-agent-skills/changelog.md](docs/super-agent-skills/changelog.md).
 
-## [Unreleased]
+## [1.2.0] — 2026-04-21
 
 ### Added
 - `/super-init` slash command and `super-init` skill — replaces `/project-setup` with a stronger primitive that handles both first-time generation (GENERATE branch) and refresh of an existing CLAUDE.md (AUDIT branch).
